@@ -25,7 +25,7 @@ CREATE TABLE organization (
     kpp char(8),
     address varchar(100),
     type varchar(100),
-    legal_entity varchar(100),
+    legal_entity bit(1),
     fk_town int not null,
     foreign key (fk_town) references town (id)
 );
@@ -83,10 +83,10 @@ CREATE TABLE vaccination (
 );
 
 CREATE TABLE organizations_contracts (
-    type_org bit(1),
+    number_of_org int not null,
     fk_contract int not null,
     fk_organization int not null,
-    primary key (type_org, fk_contract),
+    primary key (number_of_org, fk_contract),
     foreign key (fk_contract) references contract (id),
     foreign key (fk_organization) references organization (id)
 )
