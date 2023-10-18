@@ -1,0 +1,48 @@
+version: '3.7'
+
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/Nginx.Dockerfile
+    ports:
+      - 80:8080
+    networks:
+      - backend
+      - client
+  dotnet:
+    build:
+      context: ./../
+      dockerfile: PIS-Vaccination-PI-21-03/docker/CSharp.Dockerfile
+    networks:
+      - backend
+      - database
+  node:
+    build:
+      context: .
+      dockerfile: docker/NodeJS.Dockerfile
+    networks:
+      - client
+    volumes:
+      - ./client:/client
+  db:
+    image: postgres:15.1
+    restart: unless-stopped
+    volumes:
+      - ./../pgsql-volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: "vaccination"
+      POSTGRES_USER: "root"
+      POSTGRES_PASSWORD: "root"
+    networks:
+      - database
+
+networks:
+  backend:
+    driver: bridge
+  client:
+    driver: bridge
+  database:
+    driver: bridge
