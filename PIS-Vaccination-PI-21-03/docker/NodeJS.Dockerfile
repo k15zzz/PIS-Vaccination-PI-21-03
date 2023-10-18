@@ -4,6 +4,4 @@ COPY ./client /client
 
 WORKDIR /client
 
-RUN npm i 
-
-ENTRYPOINT npm run dev
+CMD npm install -y && npm run dev
