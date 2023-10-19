@@ -1,14 +1,18 @@
-using System;
+var builder = WebApplication.CreateBuilder(args);
 
-public class Program
+builder.Services.AddControllers();
+
+var app = builder.Build();
+
+app.MapGet("/api", () => "Server start");
+
+app.UseDeveloperExceptionPage();
+ 
+app.UseRouting();
+ 
+app.UseEndpoints(endpoints =>
 {
-    public static void Main(string[] args)
-    {
-        var builder = WebApplication.CreateBuilder(args);
-        var app = builder.Build();
+    endpoints.MapControllers();
+});
 
-        app.MapGet("/api", () => "Hello World!");
-        
-        app.Run();
-    }
-}
+app.Run();

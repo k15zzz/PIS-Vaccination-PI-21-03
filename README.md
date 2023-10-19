@@ -6,6 +6,11 @@
 - NUXT 3
 - PostgreSQL 15
 - Nginx Latest
+- NodeJS 18.12.1-alpine
+
+# Архитектура проекта
+
+Архитектура реализована по материалу: https://habr.com/ru/articles/493430/
 
 ## Запуск проекта
 
