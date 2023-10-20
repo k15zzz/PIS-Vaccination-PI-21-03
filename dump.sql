@@ -83,10 +83,11 @@ CREATE TABLE vaccination (
 );
 
 CREATE TABLE organizations_contracts (
+    id serial primary key,
     number_of_org int not null,
     fk_contract int not null,
     fk_organization int not null,
-    primary key (number_of_org, fk_contract),
+--     primary key (number_of_org, fk_contract),
     foreign key (fk_contract) references contract (id),
     foreign key (fk_organization) references organization (id)
 )

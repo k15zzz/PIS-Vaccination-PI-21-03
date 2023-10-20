@@ -10,7 +10,9 @@
 
 # Архитектура проекта
 
-Архитектура реализована по материалу: https://habr.com/ru/articles/493430/
+Архитектура реализована по материалам:
+- https://habr.com/ru/articles/493430/
+- https://metanit.com/sharp/efcore/7.3.php
 
 ## Запуск проекта
 
