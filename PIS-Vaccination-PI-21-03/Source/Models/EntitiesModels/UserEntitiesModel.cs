@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
-[Table("user_entities")]
+[Table("users")]
 public class UserEntitiesModels
 {
     [Column("id")]
