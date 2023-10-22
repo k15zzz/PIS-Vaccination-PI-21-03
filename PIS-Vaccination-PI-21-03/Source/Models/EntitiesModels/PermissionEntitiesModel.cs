@@ -2,8 +2,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
-[Table("role")]
-public class RoleEntitiesModel
+[Table("permission")]
+public class PermissionEntitiesModel
 {
     [Column("id")]
     public int Id { get; set; }

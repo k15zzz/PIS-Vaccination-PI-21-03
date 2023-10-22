@@ -8,7 +8,6 @@ public class AppDbContext : DbContext
     public DbSet<AnimalEntitiesModel> Animals { get; set; } = null!;
     public DbSet<ContractEntitiesModel> Contracts { get; set; } = null!;
     public DbSet<OrganizationEntitiesModel> Organizations { get; set; } = null!;
-    public DbSet<OrganizationsContractsEntitiesModels> OrganizationsContracts { get; set; } = null!;
     public DbSet<RoleEntitiesModel> Roles { get; set; } = null!; 
     public DbSet<TownEntitiesModel> Towns { get; set; } = null!;
     public DbSet<TownsServiceEntitiesModels> TownsServices { get; set; } = null!;
