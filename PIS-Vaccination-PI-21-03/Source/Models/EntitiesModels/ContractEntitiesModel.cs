@@ -13,4 +13,8 @@ public class ContractEntitiesModel
     public DateTime StartDate { get; set; }
     [Column("end_date")]
     public DateTime EndDate { get; set; }
+    [Column("fk_org_executor")]
+    public OrganizationEntitiesModel Executor {get; set; }
+    [Column("fk_org_client")]
+    public OrganizationEntitiesModel Client {get; set; }
 }
