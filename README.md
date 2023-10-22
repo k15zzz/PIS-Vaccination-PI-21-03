@@ -19,7 +19,7 @@
 # Архитектура проекта
 
 Архитектура реализована по материалам:
-- [Чистая Архитектура для веб-приложений] https://habr.com/ru/articles/493430/)
+- [Чистая Архитектура для веб-приложений](https://habr.com/ru/articles/493430/)
 - [PostgreSQL](https://metanit.com/sharp/efcore/7.3.php)
 - [Аутентификация с помощью JWT-токенов](https://metanit.com/sharp/aspnet6/13.2.php)
 
