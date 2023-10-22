@@ -66,9 +66,13 @@ CREATE TABLE towns_service (
 
 CREATE TABLE contract (
     id serial primary key,
-    number varchar(7),
-    start_date time,
-    end_date time
+    number varchar(7) not null ,
+    start_date time not null,
+    end_date time not null,
+    fk_org_executor int not null,
+    fk_org_client int not null,
+    foreign key (fk_org_executor) references organization (id),
+    foreign key (fk_org_client) references organization (id)
 );
 
 CREATE TABLE vaccination (
@@ -84,16 +88,6 @@ CREATE TABLE vaccination (
      foreign key (fk_contract) references contract (id)
 );
 
-CREATE TABLE organizations_contracts (
-    id serial primary key,
-    number_of_org int not null,
-    fk_contract int not null,
-    fk_organization int not null,
---     primary key (number_of_org, fk_contract),
-    foreign key (fk_contract) references contract (id),
-    foreign key (fk_organization) references organization (id)
-);
-
 CREATE TABLE permission (
      id serial primary key,
      name text
@@ -107,8 +101,8 @@ CREATE TABLE permission_role (
     foreign key (fk_permission) references permission (id)
 );
 
-INSERT INTO role 
-    (id, name) 
+INSERT INTO role
+    (id, name)
 VALUES
     (1, 'Куратор ВетСлужбы'),
     (2, 'Куратор по отлову'),
@@ -125,8 +119,8 @@ VALUES
     (13, 'Ветврач приюта'),
     (14, 'super-admin');
 
-INSERT INTO permission 
-    (id, name) 
+INSERT INTO permission
+    (id, name)
 VALUES
     (1, 'create-animal'),
     (2, 'create-organization'),
@@ -143,8 +137,8 @@ VALUES
     (13, 'have-town'),
     (14, 'create-statistic');
 
-INSERT INTO permission_role 
-    (fk_role, fk_permission) 
+INSERT INTO permission_role
+    (fk_role, fk_permission)
 VALUES
     (1,  7),
     (1,  8),
@@ -216,24 +210,25 @@ VALUES
 
 INSERT INTO town (name) VALUES ('Тюмень'), ('Новосибирск');
 
-INSERT INTO organization 
-    (full_name, inn, kpp, address, type, legal_entity, fk_town) 
-VALUES 
-    ('ООО Аргон и сварка', '2355786', '4567', 'ул. Прокопия. д. 2', 'Приют', b'1', 1), 
-    ('ООО Клеточный кот', '442342', '42813', 'ул. Прокопия. д. 1', 'Приют', b'1', 2);
+INSERT INTO organization
+    (full_name, inn, kpp, address, type, legal_entity, fk_town)
+VALUES
+    ('ООО Аргон и сварка', '2355786', '4567', 'ул. Прокопия. д. 2', 'Приют', b'1', 1),
+    ('ООО Клеточный кот', '442342', '42813', 'ул. Прокопия. д. 1', 'Приют', b'1', 2),
+    ('ИП Конец бездомным', '443342', '43813', 'ул. Прокопия. д. 3', 'Заявитель', b'0', 1);
 
-INSERT INTO users 
-    (login, password, fk_org, fk_role) 
-VALUES 
-    ('boss', 'p4ssw0rd', 1, 6), 
-    ('master', 'aster', 1, 14), 
+INSERT INTO users
+    (login, password, fk_org, fk_role)
+VALUES
+    ('boss', 'p4ssw0rd', 1, 6),
+    ('master', 'aster', 1, 14),
     ('towntest', '1', 1, 9);
 
-INSERT INTO animal 
-    (reg_num, category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town) 
-VALUES 
-    ('123123', b'1', b'1', '2005-01-01 00:00:00', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1), 
-    ('345234', b'1', b'0', '2004-01-01 00:00:00', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1), 
+INSERT INTO animal
+    (reg_num, category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)
+VALUES
+    ('123123', b'1', b'1', '2005-01-01 00:00:00', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1),
+    ('345234', b'1', b'0', '2004-01-01 00:00:00', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1),
     ('123456', b'0', b'1', '2000-01-01 00:00:00', '2342387', 'Аба', 'на фотках собака, красивая', 'рыжая, красивая, отсутствует нос и хвост', 2);
 
 
@@ -241,12 +236,12 @@ INSERT INTO towns_service (fk_town, service, price) VALUES
     (1, 'Вакцинация', 100),
     (2, 'Вакцинация', 72);
 
-INSERT INTO contract 
-    (number, start_date, end_date)
+INSERT INTO contract
+    (number, start_date, end_date, fk_org_executor, fk_org_client)
 VALUES
-    (1, '2003-01-01 00:00:00', '2005-01-01 00:00:00');
+    (1, '2003-01-01 00:00:00', '2005-01-01 00:00:00', 1, 3);
 
-INSERT INTO vaccination 
+INSERT INTO vaccination
     (id, type, date, num_of_series, date_of_expire, position_of_doc, fk_org, fk_contract)
 VALUES
     (1, 'бешенство', '2002-02-12', '434234234', '2015-03-12', 'Вет-врач-инъекционист', 2, 1),
@@ -254,13 +249,3 @@ VALUES
     (3, 'бешенство', '2002-02-12', '434234234', '2022-03-12', 'Вет-врач-инъекционист', 2, 1),
     (4, 'бешенство', '2010-02-12', '434234234', '2012-03-12', 'Вет-врач-инъекционист', 2, 1),
     (5, 'бешенство', '2002-02-12', '434234234', '2014-03-12', 'Вет-врач-инъекционист', 1, 1);
-
-INSERT INTO contract
-    (number, start_date, end_date)
-VALUES
-    (1, '2003-01-01 00:00:00', '2004-01-01 00:00:00');
-
-INSERT INTO organizations_contracts
-    (number_of_org, fk_contract, fk_organization)
-VALUES 
-    (1, 1, 1);
