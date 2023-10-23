@@ -1,7 +1,7 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PIS_Vaccination_PI_21_03.Source.Repository;
+using PIS_Vaccination_PI_21_03.Source.Services.Permission;
 
 namespace PIS_Vaccination_PI_21_03.Source.Controller;
 
@@ -10,7 +10,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 public class AnimalController : ControllerBase
 {
     [HttpGet]
-    [Authorize]
+    [ScopedPermission("read-animal")]
     public async Task<IActionResult> List()
     {
         using (AppDbContext db = new AppDbContext())

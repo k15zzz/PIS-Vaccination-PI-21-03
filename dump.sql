@@ -47,7 +47,7 @@ CREATE TABLE animal (
     reg_num int8,
     category bit(1),
     sex bit(1),
-    year_birth time,
+    year_birth date,
     electronic_chip_number varchar(15),
     name varchar(100),
     photos varchar(1000),
@@ -67,8 +67,8 @@ CREATE TABLE towns_service (
 CREATE TABLE contract (
     id serial primary key,
     number varchar(7) not null ,
-    start_date time not null,
-    end_date time not null,
+    start_date date not null,
+    end_date date not null,
     fk_org_executor int not null,
     fk_org_client int not null,
     foreign key (fk_org_executor) references organization (id),
@@ -227,9 +227,9 @@ VALUES
 INSERT INTO animal
     (reg_num, category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)
 VALUES
-    ('123123', b'1', b'1', '2005-01-01 00:00:00', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1),
-    ('345234', b'1', b'0', '2004-01-01 00:00:00', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1),
-    ('123456', b'0', b'1', '2000-01-01 00:00:00', '2342387', 'Аба', 'на фотках собака, красивая', 'рыжая, красивая, отсутствует нос и хвост', 2);
+    ('123123', b'1', b'1', '2005-01-01', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1),
+    ('345234', b'1', b'0', '2004-01-01', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1),
+    ('123456', b'0', b'1', '2000-01-01', '2342387', 'Аба', 'на фотках собака, красивая', 'рыжая, красивая, отсутствует нос и хвост', 2);
 
 
 INSERT INTO towns_service (fk_town, service, price) VALUES
@@ -239,7 +239,7 @@ INSERT INTO towns_service (fk_town, service, price) VALUES
 INSERT INTO contract
     (number, start_date, end_date, fk_org_executor, fk_org_client)
 VALUES
-    (1, '2003-01-01 00:00:00', '2005-01-01 00:00:00', 1, 3);
+    (1, '2003-01-01', '2005-01-01', 1, 3);
 
 INSERT INTO vaccination
     (id, type, date, num_of_series, date_of_expire, position_of_doc, fk_org, fk_contract)
