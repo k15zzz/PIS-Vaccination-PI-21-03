@@ -1,6 +1,6 @@
 ﻿FROM node:18.12.1-alpine
 
-COPY ./Сlient /client
+#COPY ./Сlient /client
 
 WORKDIR /client
 

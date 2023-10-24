@@ -9,12 +9,13 @@ COPY ["PIS-Vaccination-PI-21-03/PIS-Vaccination-PI-21-03.csproj", "PIS-Vaccinati
 RUN dotnet restore "PIS-Vaccination-PI-21-03/PIS-Vaccination-PI-21-03.csproj"
 COPY . .
 WORKDIR "/src/PIS-Vaccination-PI-21-03"
-RUN dotnet build "PIS-Vaccination-PI-21-03.csproj" -c Release -o /app/build
-
-FROM build AS publish
-RUN dotnet publish "PIS-Vaccination-PI-21-03.csproj" -c Release -o /app/publish /p:UseAppHost=false
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PIS-Vaccination-PI-21-03.dll"]
+ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://dotnet:80"]
+#RUN dotnet build "PIS-Vaccination-PI-21-03.csproj" -c Release -o /app/build
+#
+#FROM build AS publish
+#RUN dotnet publish "PIS-Vaccination-PI-21-03.csproj" -c Release -o /app/publish /p:UseAppHost=false
+#
+#FROM base AS final
+#WORKDIR /app
+#COPY --from=publish /app/publish .
+#ENTRYPOINT ["dotnet", "PIS-Vaccination-PI-21-03.dll"]
