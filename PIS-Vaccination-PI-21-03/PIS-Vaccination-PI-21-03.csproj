@@ -9,10 +9,21 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EntityFramework" Version="6.2.0" />
       <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.23" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.13" />
       <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\.commitlintrc.json" />
+      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\package.json" />
+      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\renovate.json" />
+      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\tsconfig.json" />
+      <_ContentIncludedByDefault Remove="Client\package-lock.json" />
+      <_ContentIncludedByDefault Remove="Client\package.json" />
+      <_ContentIncludedByDefault Remove="Client\server\tsconfig.json" />
+      <_ContentIncludedByDefault Remove="Client\tsconfig.json" />
     </ItemGroup>
 
 </Project>

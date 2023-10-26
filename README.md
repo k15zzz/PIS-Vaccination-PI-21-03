@@ -22,6 +22,8 @@
 - [Чистая Архитектура для веб-приложений](https://habr.com/ru/articles/493430/)
 - [PostgreSQL](https://metanit.com/sharp/efcore/7.3.php)
 - [Аутентификация с помощью JWT-токенов](https://metanit.com/sharp/aspnet6/13.2.php)
+- [Документация по NUXT](https://nuxt.com/)
+- [Валидация на Vue3](https://vee-validate.logaretm.com/v4/)
 
 ## Запуск проекта
 

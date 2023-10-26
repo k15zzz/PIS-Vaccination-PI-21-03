@@ -20,13 +20,13 @@ public class AuthorizeService
         }
         
         if(user is null) 
-            return new JwtResponse(false, null, null);
+            return new JwtResponse( null, false, null, null);
 
         var claims = GenerateClaim(user.Id.ToString(), user.Login);
 
         var encodedJwt = GenerateJwtToken(claims);
  
-        return new JwtResponse(true, encodedJwt, user.Login);
+        return new JwtResponse(user.Id,true, encodedJwt, user.Login);
     }
     
     private static List<Claim> GenerateClaim(string id, string login)
