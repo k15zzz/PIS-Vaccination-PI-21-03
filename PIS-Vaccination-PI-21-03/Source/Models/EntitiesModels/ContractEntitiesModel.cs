@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Composition.Convention;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -17,4 +18,9 @@ public class ContractEntitiesModel
     public OrganizationEntitiesModel Executor {get; set; }
     [Column("fk_org_client")]
     public OrganizationEntitiesModel Client {get; set; }
+    [ForeignKey("FkOrganization")]
+    public OrganizationEntitiesModel FkExecutor { get; set; }
+    [ForeignKey("FkOrganization")]
+    public OrganizationEntitiesModel FkClient { get; set; }
+    
 }

@@ -11,16 +11,5 @@ public class AnimalController : ControllerBase
     [HttpGet]
     // [ScopedPermission("read-animal")]
     [ActionName("list")]
-    public async Task<IActionResult> List()
-    {
-        using (AppDbContext db = new AppDbContext())
-        {
-            var animals = db
-                .Animals
-                .Include(a => a.Town)
-                .ToList();
-            
-            return Ok(animals);
-        }
-    }
+    public async Task<IActionResult> List() => Ok(new AnimalRepository().ReadTableAsync());
 }
