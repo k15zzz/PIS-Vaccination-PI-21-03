@@ -459,4 +459,6 @@ bin
 
 pgsql-volume
 
+.DS_Store
+
 package-lock.json

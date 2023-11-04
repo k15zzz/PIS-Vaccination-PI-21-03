@@ -15,15 +15,4 @@
       <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.11" />
     </ItemGroup>
 
-    <ItemGroup>
-      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\.commitlintrc.json" />
-      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\package.json" />
-      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\renovate.json" />
-      <_ContentIncludedByDefault Remove="Client\modules\nuxt-storage\tsconfig.json" />
-      <_ContentIncludedByDefault Remove="Client\package-lock.json" />
-      <_ContentIncludedByDefault Remove="Client\package.json" />
-      <_ContentIncludedByDefault Remove="Client\server\tsconfig.json" />
-      <_ContentIncludedByDefault Remove="Client\tsconfig.json" />
-    </ItemGroup>
-
 </Project>

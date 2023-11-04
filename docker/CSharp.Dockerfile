@@ -8,7 +8,7 @@ WORKDIR /src
 COPY ["PIS-Vaccination-PI-21-03/PIS-Vaccination-PI-21-03.csproj", "PIS-Vaccination-PI-21-03/"]
 RUN dotnet restore "PIS-Vaccination-PI-21-03/PIS-Vaccination-PI-21-03.csproj"
 COPY . .
-WORKDIR "/src/PIS-Vaccination-PI-21-03"
+WORKDIR "/src/PIS-Vaccination-PI-21-03/PIS-Vaccination-PI-21-03"
 ENTRYPOINT ["dotnet", "watch", "run", "--urls", "http://dotnet:80"]
 #RUN dotnet build "PIS-Vaccination-PI-21-03.csproj" -c Release -o /app/build
 #
