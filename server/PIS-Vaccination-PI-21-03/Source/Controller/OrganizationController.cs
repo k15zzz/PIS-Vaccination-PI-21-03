@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PIS_Vaccination_PI_21_03.Source.Models;
 using PIS_Vaccination_PI_21_03.Source.Repository;
 
 namespace PIS_Vaccination_PI_21_03.Source.Controller;
@@ -10,6 +11,11 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 
 public class OrganizationController : ControllerBase
 {
+    [HttpPost]
+    [ActionName("add-organization")]
+    public async Task<IActionResult> AddOrganization(OrganizationEntitiesModel newOrganization) =>
+        Ok(new OrganizationRepository().CreateAsync(newOrganization));
+    
     [HttpGet]
     [ActionName("list")]
     public async Task<IActionResult> List() => Ok(new OrganizationRepository().ReadTableAsync());
