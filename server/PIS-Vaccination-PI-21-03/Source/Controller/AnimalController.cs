@@ -11,7 +11,7 @@ public class AnimalController : ControllerBase
 {
     [HttpPost]
     [ActionName("add-animal")]
-    public async Task<IActionResult> AddAnimal(AnimalEntitiesModel newAnimal) =>
+    public async Task<IActionResult> AddAnimal(JsonContent newAnimal) =>
         Ok(new AnimalRepository().CreateAsync(newAnimal));
     // я не уверен что так правильно, простите, потом поменяю если ето неправильно
     [HttpGet]

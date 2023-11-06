@@ -2,11 +2,11 @@
 
 public interface IRepository <T>
 {
-    public Task<int>     CreateAsync     (T model);
+    public int     CreateAsync     (JsonContent model);
     public Task<List<T>> ReadTableAsync  ();
     public Task<T>       ReadItemAsync   (int id);
-    public Task          UpdateAsync     (int bookId, JsonContent bookModel);
-    public Task          DeleteBookAsync (int bookId);
+    public Task          UpdateAsync     (int bookId, JsonContent UpdatedModel);
+    public Task          DeleteAsync (int bookId);
 }
 //кринге
 //мы старались 0_0

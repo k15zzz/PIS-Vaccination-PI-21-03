@@ -12,7 +12,7 @@ public class ContractController : ControllerBase
 {
     [HttpPost]
     [ActionName("add-contract")]
-    public async Task<IActionResult> AddContract(ContractEntitiesModel newContract) =>
+    public async Task<IActionResult> AddContract(JsonContent newContract) =>
         Ok(new ContractRepository().CreateAsync(newContract));
     
     [HttpGet]

@@ -1,12 +1,18 @@
-﻿using PIS_Vaccination_PI_21_03.Source.Models;
+﻿using System.Text.Json;
+using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
 {
-    public Task<int> CreateAsync(VaccinationEntitiesModel model)
+    public int CreateAsync(JsonContent model)
     {
-        throw new NotImplementedException();
+        using (var db = new AppDbContext())
+        {
+            var newEntity = JsonSerializer.Deserialize<VaccinationEntitiesModel>(model.ToString());
+            db.Vaccinations.AddAsync(newEntity);
+            return newEntity.Id;
+        }
     }
 
     public Task<List<VaccinationEntitiesModel>> ReadTableAsync()
@@ -19,12 +25,12 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(int bookId, JsonContent bookModel)
+    public Task UpdateAsync(int bookId, JsonContent UpdatedModel)
     {
         throw new NotImplementedException();
     }
 
-    public Task DeleteBookAsync(int bookId)
+    public Task DeleteAsync(int bookId)
     {
         throw new NotImplementedException();
     }

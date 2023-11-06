@@ -13,7 +13,7 @@ public class OrganizationController : ControllerBase
 {
     [HttpPost]
     [ActionName("add-organization")]
-    public async Task<IActionResult> AddOrganization(OrganizationEntitiesModel newOrganization) =>
+    public async Task<IActionResult> AddOrganization(JsonContent newOrganization) =>
         Ok(new OrganizationRepository().CreateAsync(newOrganization));
     
     [HttpGet]
