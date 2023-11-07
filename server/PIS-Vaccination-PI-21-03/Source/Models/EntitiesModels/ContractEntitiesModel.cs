@@ -18,9 +18,9 @@ public class ContractEntitiesModel
     public OrganizationEntitiesModel Executor {get; set; }
     [Column("fk_org_client")]
     public OrganizationEntitiesModel Client {get; set; }
-    [ForeignKey("FkOrganization")]
+    [ForeignKey("fk_org_executor")]
     public OrganizationEntitiesModel FkExecutor { get; set; }
-    [ForeignKey("FkOrganization")]
+    [ForeignKey("fk_org_client")]
     public OrganizationEntitiesModel FkClient { get; set; }
     
 }
