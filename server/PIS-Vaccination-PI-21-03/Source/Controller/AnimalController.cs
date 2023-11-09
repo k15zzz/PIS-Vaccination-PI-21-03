@@ -14,10 +14,18 @@ public class AnimalController : ControllerBase
     public async Task<IActionResult> AddAnimal(JsonContent newAnimal) =>
         Ok(new AnimalRepository().CreateAsync(newAnimal));
     // я не уверен что так правильно, простите, потом поменяю если ето неправильно
+    
     [HttpGet]
     // [ScopedPermission("read-animal")]
     [ActionName("list")]
     public async Task<IActionResult> List() => Ok(new AnimalRepository().ReadTableAsync());
+
+    [HttpPut("{id}")] [ActionName("update-animal")]
+    public async Task<IActionResult> UpdateAnimal([FromBody] JsonContent animalModel, [FromRoute] int id)
+    {
+        new AnimalRepository().UpdateAsync(id, animalModel);
+        return Ok();
+    }
     
 }
 

@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
 using PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -26,9 +27,19 @@ public class AnimalRepository: IRepository<AnimalEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(int bookId, JsonContent UpdatedModel)
+    public void UpdateAsync(int id, JsonContent newModel) 
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var animal = context.Animals.FindAsync(id); //то, что нужно обновить
+            if (animal != null)
+            {
+                var updatedAnimal = JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); //то, чем обновляем
+                context.Entry(animal).CurrentValues.SetValues(updatedAnimal);
+                context.SaveChangesAsync();
+            }
+            //сделать что-то, еасли не найдено
+        }
     }
 
     public Task DeleteAsync(int bookId)

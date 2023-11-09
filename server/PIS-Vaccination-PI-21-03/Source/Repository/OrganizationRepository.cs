@@ -25,9 +25,19 @@ public class OrganizationRepository : IRepository<OrganizationEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(int bookId, JsonContent UpdatadModel)
+    public void UpdateAsync(int id, JsonContent newModel)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var organization = context.Organizations.FindAsync(id); 
+            if (organization != null)
+            {
+                var updatedOrganization =
+                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); 
+                context.Entry(organization).CurrentValues.SetValues(updatedOrganization);
+                context.SaveChangesAsync();
+            }
+        }
     }
 
     public Task DeleteAsync(int bookId)

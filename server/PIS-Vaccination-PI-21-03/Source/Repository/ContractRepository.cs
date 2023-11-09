@@ -26,9 +26,19 @@ public class ContractRepository:IRepository<ContractEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(int bookId, JsonContent UpdatedModel)
+    public void UpdateAsync(int id, JsonContent newModel)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var contract = context.Contracts.FindAsync(id);
+            if (contract != null)
+            {
+                var updatedContract =
+                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); 
+                context.Entry(contract).CurrentValues.SetValues(updatedContract);
+                context.SaveChangesAsync();
+            }
+        }
     }
 
     public Task DeleteAsync(int bookId)

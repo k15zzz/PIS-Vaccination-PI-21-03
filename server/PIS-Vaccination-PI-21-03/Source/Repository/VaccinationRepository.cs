@@ -25,9 +25,19 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(int bookId, JsonContent UpdatedModel)
+    public void UpdateAsync(int id, JsonContent newModel)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var vaccination = context.Vaccinations.FindAsync(id);
+            if (vaccination != null)
+            {
+                var updatedVaccination =
+                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString());
+                context.Entry(vaccination).CurrentValues.SetValues(updatedVaccination);
+                context.SaveChangesAsync();
+            }
+        }
     }
 
     public Task DeleteAsync(int bookId)

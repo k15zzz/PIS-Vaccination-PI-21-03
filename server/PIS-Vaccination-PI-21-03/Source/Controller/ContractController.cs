@@ -18,4 +18,11 @@ public class ContractController : ControllerBase
     [HttpGet]
     [ActionName("list")]
     public async Task<IActionResult> List() => Ok(new ContractRepository().ReadTableAsync());
+    
+    [HttpPut("{id}")] [ActionName("update-contract")]
+    public async Task<IActionResult> UpdateContract([FromBody] JsonContent contractModel, [FromRoute] int id)
+    {
+        new ContractRepository().UpdateAsync(id, contractModel);
+        return Ok();
+    }
 }
