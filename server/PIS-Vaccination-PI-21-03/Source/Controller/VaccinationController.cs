@@ -17,4 +17,11 @@ public class VaccinationController : ControllerBase
     [HttpGet]
     [ActionName("list")]
     public async Task<IActionResult> List() => Ok(new VaccinationRepository().ReadTableAsync());
+    
+    [HttpPut("{id}")] [ActionName("delete-vaccination")]
+    public async Task<IActionResult> DeleteVaccination([FromRoute] int id)
+    {
+        new VaccinationRepository().DeleteAsync(id);
+        return Ok();
+    }
 }

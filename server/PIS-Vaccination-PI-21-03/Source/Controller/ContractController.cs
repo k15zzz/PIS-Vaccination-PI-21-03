@@ -25,4 +25,10 @@ public class ContractController : ControllerBase
         new ContractRepository().UpdateAsync(id, contractModel);
         return Ok();
     }
+    [HttpPut("{id}")] [ActionName("delete-contract")]
+    public async Task<IActionResult> DeleteContract([FromRoute] int id)
+    {
+        new ContractRepository().DeleteAsync(id);
+        return Ok();
+    }
 }

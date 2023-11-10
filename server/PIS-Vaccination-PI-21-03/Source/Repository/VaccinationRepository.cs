@@ -40,8 +40,17 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int bookId)
+    public Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var vaccination = context.Vaccinations.FindAsync(id);
+            if (vaccination != null)
+            {
+                context.Vaccinations.Remove(vaccination);
+                context.SaveChangesAsync();
+            }
+            // Если не нашло, вывести сообщение об отсутствии вакцинации
+        }
     }
 }

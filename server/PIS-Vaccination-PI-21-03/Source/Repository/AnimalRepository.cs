@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
-
 using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -43,8 +42,17 @@ public class AnimalRepository: IRepository<AnimalEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int bookId)
+    public Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var animal = context.Animals.FindAsync(id);
+            if (animal != null)
+            {
+                context.Animals.Remove(animal);
+                context.SaveChangesAsync();
+            }
+            // Если не нашло, вывести сообщение об отсутствии животного
+        }
     }
 }
