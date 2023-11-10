@@ -40,7 +40,7 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int bookId)
+    public Task DeleteAsync(int id)
     {
         using (var context = new AppDbContext())
         {

@@ -41,7 +41,7 @@ public class OrganizationRepository : IRepository<OrganizationEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int bookId)
+    public Task DeleteAsync(int id)
     {
         using (var context = new AppDbContext())
         {
