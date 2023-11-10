@@ -46,11 +46,11 @@ public class AnimalRepository: IRepository<AnimalEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int id)
+    public void DeleteAsync(int id)
     {
         using (var context = new AppDbContext())
         {
-            var animal = context.Animals.FindAsync(id);
+            var animal = context.Animals.FindAsync(id).Result;
             if (animal != null)
             {
                 context.Animals.Remove(animal);

@@ -1,9 +1,5 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using PIS_Vaccination_PI_21_03.Source.Services.Authorize;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,7 +14,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             // указывает, будет ли валидироваться издатель при валидации токена
             ValidateIssuer = true,
-            // строка, представляющая издателя
+            // строка, представляющая издателя 
             ValidIssuer = AuthorizeOptions.ISSUER,
             // будет ли валидироваться потребитель токена
             ValidateAudience = true,

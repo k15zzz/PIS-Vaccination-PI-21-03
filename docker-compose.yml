@@ -18,7 +18,7 @@ services:
       - backend
       - database
     volumes:
-      - ./server:/src/PIS-Vaccination-PI-21-03
+      - ./server/PIS-Vaccination-PI-21-03/Source:/src/PIS-Vaccination-PI-21-03/Source
   node:
     build:
       context: ./client

@@ -18,7 +18,7 @@ public class StatisticRepository
                 .Include(v => v.Organization)
                 .Include(v => v.Organization.Town)
                 .Include(v => v.Organization.Town.TownsService)
-                // .Where(v => dateStart <= v.Date && v.Date <= dateFinish)
+                .Where(v => dateStart <= v.Date && v.Date <= dateFinish)
                 .Where(v => town.Contains(v.Organization.FkTown))
                 .ToList();
         }

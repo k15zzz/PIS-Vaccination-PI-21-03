@@ -44,12 +44,11 @@ public class ContractRepository:IRepository<ContractEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int id)
+    public void DeleteAsync(int id)
     {
-        var contract = context.Contracts.FindAsync(id);
-        if (contract != null)
+        using (var context = new AppDbContext())
         {
-            var contract = context.Contracts.FindAsync(id);
+            var contract = context.Contracts.FindAsync(id).Result;
             if (contract != null)
             {
                 context.Contracts.Remove(contract);

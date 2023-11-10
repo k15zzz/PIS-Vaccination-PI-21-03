@@ -42,11 +42,11 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int id)
+    public void DeleteAsync(int id)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id);
+            var vaccination = context.Vaccinations.FindAsync(id).Result;
             if (vaccination != null)
             {
                 context.Vaccinations.Remove(vaccination);

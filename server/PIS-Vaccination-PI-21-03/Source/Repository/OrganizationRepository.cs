@@ -43,11 +43,11 @@ public class OrganizationRepository : IRepository<OrganizationEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int id)
+    public void DeleteAsync(int id)
     {
         using (var context = new AppDbContext())
         {
-            var organization = context.Organizations.FindAsync(id);
+            var organization = context.Organizations.FindAsync(id).Result;
             if (organization != null)
             {
                 context.Organizations.Remove(organization);
