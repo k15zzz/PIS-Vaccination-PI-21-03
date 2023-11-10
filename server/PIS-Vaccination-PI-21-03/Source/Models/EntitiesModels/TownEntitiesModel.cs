@@ -9,4 +9,5 @@ public class TownEntitiesModel
     public int Id { get; set; }
     [Column("name")]
     public string Name { get; set; }
+    public List<TownsServiceEntitiesModels> TownsService { get; set; }
 }

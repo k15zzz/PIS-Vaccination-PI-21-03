@@ -11,8 +11,8 @@ public class TownsServiceEntitiesModels
     public int FkTown { get; set; }
     [ForeignKey("FkTown")]
     public TownEntitiesModel Town { get; set; }
-    [Column("fk_service")]
-    public int FkService { get; set; }
-    [ForeignKey("FkService")]
+    [Column("price")]
     public int Price { get; set; }
+    [Column("service")]
+    public string Service { get; set; }
 }
