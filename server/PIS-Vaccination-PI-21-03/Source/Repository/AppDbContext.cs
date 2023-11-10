@@ -22,6 +22,9 @@ public class AppDbContext : DbContext
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseNpgsql("Host=db;Port=5432;Database=vaccination;Username=root;Password=root");
+        //Для прода
+        //optionsBuilder.UseNpgsql("Host=db;Port=5432;Database=vaccination;Username=root;Password=root");
+        // Для теста
+        optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=vaccination;Username=root;Password=root");
     }
 }

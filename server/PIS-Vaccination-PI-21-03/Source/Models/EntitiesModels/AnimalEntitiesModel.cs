@@ -1,4 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
+using PIS_Vaccination_PI_21_03.Source.Repository;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -27,4 +29,20 @@ public class AnimalEntitiesModel
     public int FkTown { get; set; }
     [ForeignKey("FkTown")]
     public TownEntitiesModel Town { get; set; }
+
+    public static implicit operator AnimalEntitiesModel(AnimalViewModel viewNodel)
+    {
+        AnimalEntitiesModel _entetyModel = new AnimalEntitiesModel();
+        _entetyModel.RegNum = viewNodel.RegNum;
+        _entetyModel.Category = viewNodel.Category;
+        _entetyModel.Sex = viewNodel.Sex;
+        _entetyModel.YearBirth = viewNodel.YearBirth;
+        _entetyModel.ElectronicChipNumber = viewNodel.ElectronicChipNumber;
+        _entetyModel.Name = viewNodel.Name;
+        _entetyModel.Photos = viewNodel.Photos;
+        _entetyModel.SpecialMarks = viewNodel.SpecialMarks;
+        _entetyModel.FkTown = viewNodel.FkTown;
+        _entetyModel.Town = new AppDbContext().Towns.Find(viewNodel.FkTown);
+        return _entetyModel;
+    }
 }

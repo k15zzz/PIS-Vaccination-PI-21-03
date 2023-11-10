@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using PIS_Vaccination_PI_21_03.Source.Repository;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -14,12 +15,28 @@ public class ContractEntitiesModel
     [Column("end_date")]
     public DateTime EndDate { get; set; }
     [Column("fk_org_executor")]
-    public OrganizationEntitiesModel Executor {get; set; }
+    public int FkExecutor {get; set; }
     [Column("fk_org_client")]
-    public OrganizationEntitiesModel Client {get; set; }
+    public int FkClient {get; set; }
     [ForeignKey("fk_org_executor")]
-    public OrganizationEntitiesModel FkExecutor { get; set; }
+    public OrganizationEntitiesModel Executor { get; set; }
     [ForeignKey("fk_org_client")]
-    public OrganizationEntitiesModel FkClient { get; set; }
+    public OrganizationEntitiesModel Client { get; set; }
     
+    public static implicit operator ContractEntitiesModel(ContractViewModel viewNodel)
+    {
+        ContractEntitiesModel _entetyModel = new ContractEntitiesModel();
+        _entetyModel.Id = viewNodel.Id;
+        _entetyModel.Number = viewNodel.Number;
+        _entetyModel.StartDate = viewNodel.StartDate;
+        _entetyModel.EndDate = viewNodel.EndDate;
+        _entetyModel.FkExecutor = viewNodel.FkExecutor;
+        _entetyModel.FkClient = viewNodel.FkClient;
+        using (var db = new AppDbContext())
+        {
+            _entetyModel.Executor = db.Organizations.Find(viewNodel.FkExecutor);
+            _entetyModel.Client = db.Organizations.Find(viewNodel.FkClient);
+        }
+        return _entetyModel;
+    }
 }
