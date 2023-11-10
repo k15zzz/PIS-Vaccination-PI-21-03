@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations.Schema;
+using PIS_Vaccination_PI_21_03.Source.Repository;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
@@ -25,4 +26,23 @@ public class VaccinationEntitiesModel
     public int FkContract { get; set; }
     [ForeignKey("FkContract")]
     public ContractEntitiesModel Contract { get; set; }
+    
+    public static implicit operator VaccinationEntitiesModel(VaccinationViewModel viewNodel)
+    {
+        VaccinationEntitiesModel _entetyModel = new VaccinationEntitiesModel();
+        _entetyModel.Id = viewNodel.Id;
+        _entetyModel.Type = viewNodel.Type;
+        _entetyModel.Date = viewNodel.Date;
+        _entetyModel.PositionOfDoc = viewNodel.PositionOfDoc;
+        _entetyModel.NumOfSeries = viewNodel.NumOfSeries;
+        _entetyModel.DateOfExpire = viewNodel.DateOfExpire;
+        _entetyModel.FkOrg = viewNodel.FkOrg;
+        _entetyModel.FkContract = viewNodel.FkContract;
+        using (var db = new AppDbContext())
+        {
+            _entetyModel.Organization = db.Organizations.Find(viewNodel.FkOrg);
+            _entetyModel.Contract = db.Contracts.Find(viewNodel.FkContract);
+        }
+        return _entetyModel;
+    }
 }
