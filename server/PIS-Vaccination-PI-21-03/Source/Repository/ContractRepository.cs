@@ -42,8 +42,18 @@ public class ContractRepository:IRepository<ContractEntitiesModel>
         }
     }
 
-    public Task DeleteAsync(int bookId)
+    public Task DeleteAsync(int id)
     {
-        throw new NotImplementedException();
+        var contract = context.Contracts.FindAsync(id);
+        if (contract != null)
+        {
+            var contract = context.Contracts.FindAsync(id);
+            if (contract != null)
+            {
+                context.Contracts.Remove(contract);
+                context.SaveChangesAsync();
+            }
+            // Если не нашло, вывести сообщение об отсутствии контракта
+        }
     }
 }
