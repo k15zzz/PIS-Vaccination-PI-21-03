@@ -11,10 +11,8 @@ public class AnimalController : ControllerBase
 {
     [HttpPost]
     [ActionName("add-animal")]
-    public async Task<IActionResult> AddAnimal(JsonContent newAnimal) =>
+    public async Task<IActionResult> AddAnimal([FromBody] AnimalEntitiesModel newAnimal) =>
         Ok(new AnimalRepository().CreateAsync(newAnimal));
-    // я не уверен что так правильно, простите, потом поменяю если ето неправильно
-    
     [HttpGet]
     // [ScopedPermission("read-animal")]
     [ActionName("list")]

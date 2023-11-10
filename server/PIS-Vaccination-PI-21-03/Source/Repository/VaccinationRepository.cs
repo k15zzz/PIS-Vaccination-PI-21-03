@@ -5,7 +5,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
 {
-    public int CreateAsync(JsonContent model)
+    public int CreateAsync(VaccinationEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {

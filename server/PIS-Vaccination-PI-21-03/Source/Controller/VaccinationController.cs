@@ -11,7 +11,7 @@ public class VaccinationController : ControllerBase
 {
     [HttpPost]
     [ActionName("add-vaccination")]
-    public async Task<IActionResult> AddVaccination(JsonContent newVaccination) =>
+    public async Task<IActionResult> AddVaccination(VaccinationEntitiesModel newVaccination) =>
         Ok(new VaccinationRepository().CreateAsync(newVaccination));
     
     [HttpGet]

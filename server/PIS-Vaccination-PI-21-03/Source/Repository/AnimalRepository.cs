@@ -1,19 +1,20 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
+
+using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AnimalRepository: IRepository<AnimalEntitiesModel>
 {
-    public int CreateAsync(JsonContent model)
+    public int CreateAsync(AnimalEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
-            var newEntity = JsonSerializer.Deserialize<AnimalEntitiesModel>(model.ToString());
-            db.Animals.AddAsync(newEntity);
-            return newEntity.Id;
+            db.Animals.AddAsync(model);
+            return model.Id;
         }
     }
 

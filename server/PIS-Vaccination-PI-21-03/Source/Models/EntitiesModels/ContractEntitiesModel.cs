@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Composition.Convention;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 

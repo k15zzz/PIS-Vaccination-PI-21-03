@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class ContractRepository:IRepository<ContractEntitiesModel>
 {
-    public int CreateAsync(JsonContent model)
+    public int CreateAsync(ContractEntitiesModel model)
     {
         // TODO: вставить чеки на джсон и соответсиве типа, ну или трай кач хотя бы
         using (var db = new AppDbContext())

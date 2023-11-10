@@ -1,11 +1,12 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class OrganizationRepository : IRepository<OrganizationEntitiesModel>
 {
-    public int CreateAsync(JsonContent model)
+    public int CreateAsync(OrganizationEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
