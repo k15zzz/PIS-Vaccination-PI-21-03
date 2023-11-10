@@ -10,9 +10,11 @@ public class OrganizationRepository : IRepository<OrganizationEntitiesModel>
     {
         using (var db = new AppDbContext())
         {
-            var newEntity = JsonSerializer.Deserialize<OrganizationEntitiesModel>(model.ToString());
-            db.Organizations.AddAsync(newEntity);
-            return newEntity.Id;
+            db.Organizations.AddAsync(model);
+            return db.Organizations
+                .OrderBy(t => t.Id)
+                .Last()
+                .Id;
         }
     }
 

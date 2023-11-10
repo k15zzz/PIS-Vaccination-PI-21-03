@@ -9,9 +9,11 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
     {
         using (var db = new AppDbContext())
         {
-            var newEntity = JsonSerializer.Deserialize<VaccinationEntitiesModel>(model.ToString());
-            db.Vaccinations.AddAsync(newEntity);
-            return newEntity.Id;
+            db.Vaccinations.AddAsync(model);
+            return db.Vaccinations
+                .OrderBy(t => t.Id)
+                .Last()
+                .Id;
         }
     }
 

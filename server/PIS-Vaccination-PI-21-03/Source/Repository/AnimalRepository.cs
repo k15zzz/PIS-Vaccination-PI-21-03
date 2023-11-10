@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
 using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Models;
+using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
@@ -13,7 +14,10 @@ public class AnimalRepository: IRepository<AnimalEntitiesModel>
         using (var db = new AppDbContext())
         {
             db.Animals.AddAsync(model);
-            return model.Id;
+            return db.Animals
+                .OrderBy(t => t.Id)
+                .Last()
+                .Id;
         }
     }
 

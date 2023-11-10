@@ -11,9 +11,11 @@ public class ContractRepository:IRepository<ContractEntitiesModel>
         // TODO: вставить чеки на джсон и соответсиве типа, ну или трай кач хотя бы
         using (var db = new AppDbContext())
         {
-            var newEntity = JsonSerializer.Deserialize<ContractEntitiesModel>(model.ToString());
-            db.Contracts.AddAsync(newEntity);
-            return newEntity.Id;
+            db.Contracts.AddAsync(model);
+            return db.Contracts
+                .OrderBy(t => t.Id)
+                .Last()
+                .Id;
         }
     }
 
