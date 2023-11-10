@@ -26,4 +26,10 @@ public class OrganizationController : ControllerBase
         new OrganizationRepository().UpdateAsync(id, organizationModel);
         return Ok();
     }
+    [HttpPut("{id}")] [ActionName("delete-organization")]
+    public async Task<IActionResult> DeleteOrganization([FromRoute] int id)
+    {
+        new OrganizationRepository().DeleteAsync(id);
+        return Ok();
+    }
 }

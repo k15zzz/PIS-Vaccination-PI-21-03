@@ -24,6 +24,13 @@ public class AnimalController : ControllerBase
         new AnimalRepository().UpdateAsync(id, animalModel);
         return Ok();
     }
-    
+
+    [HttpPut("{id}")]
+    [ActionName("delete-animal")]
+    public async Task<IActionResult> DeleteAnimal([FromRoute] int id)
+    {
+        new AnimalRepository().DeleteAsync(id);
+        return Ok();
+    }
 }
 
