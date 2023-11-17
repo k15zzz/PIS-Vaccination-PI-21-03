@@ -5,9 +5,9 @@ import {PermissionService} from "../services/PermissionService.js";
 
 <template>
   <header>
-    <a href="/">
+    <router-link to="/">
       <img src="./../assets/logos/main-logo.svg" alt="" width="30" height="30">
-    </a>
+    </router-link>
     <div>
       <router-link
           v-if="PermissionService.can('read-animal')"
