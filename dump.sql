@@ -101,6 +101,23 @@ CREATE TABLE permission_role (
     foreign key (fk_permission) references permission (id)
 );
 
+CREATE TABLE logging (
+    surname VARCHAR(255),
+    name VARCHAR(255),
+    patronymic VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    organization VARCHAR(255),
+    department_name VARCHAR(255),
+    position VARCHAR(255),
+    work_phone VARCHAR(20),
+    work_email VARCHAR(255),
+    login VARCHAR(255),
+    date_time TIMESTAMP,
+    object_instance_id INT,
+    object_description_after_action TEXT
+);
+
 INSERT INTO role
     (id, name)
 VALUES

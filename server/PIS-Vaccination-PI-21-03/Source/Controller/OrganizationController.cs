@@ -18,7 +18,18 @@ public class OrganizationController : ControllerBase
     
     [HttpGet]
     [ActionName("list")]
-    public async Task<IActionResult> List() => Ok(new OrganizationRepository().ReadTableAsync());
+    public async Task<IActionResult> List()
+    { 
+        var list = OrganizationRepository.ReadList();
+        var result = new List<OrganizationViewModel>();
+
+        foreach (var entitiesModel in list)
+        {
+            result.Add(entitiesModel);
+        }
+        
+        return Ok(result);
+    }
     
     [HttpPut("{id}")] [ActionName("update-organization")]
     public async Task<IActionResult> UpdateOrganization([FromBody] JsonContent organizationModel, [FromRoute] int id)

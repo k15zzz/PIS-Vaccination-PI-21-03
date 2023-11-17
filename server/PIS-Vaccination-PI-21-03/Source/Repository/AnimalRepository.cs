@@ -1,13 +1,10 @@
 ﻿using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Query.ExpressionTranslators.Internal;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PIS_Vaccination_PI_21_03.Source.Models;
-using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
-public class AnimalRepository: IRepository<AnimalEntitiesModel>
+public class AnimalRepository
 {
     public int CreateAsync(AnimalEntitiesModel model)
     {
@@ -21,9 +18,18 @@ public class AnimalRepository: IRepository<AnimalEntitiesModel>
         }
     }
 
-    public Task<List<AnimalEntitiesModel>> ReadTableAsync()
-    {
-        throw new NotImplementedException();
+    public static List<AnimalEntitiesModel> ReadList()
+    { 
+        List<AnimalEntitiesModel> list;
+        
+        using (var context = new AppDbContext()) 
+        { 
+            list = context
+                .Animals
+                .ToList();
+        } 
+        
+        return list;
     }
 
     public Task<AnimalEntitiesModel> ReadItemAsync(int id)

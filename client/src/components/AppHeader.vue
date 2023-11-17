@@ -1,21 +1,39 @@
 <script setup>
 import {AuthorizeController} from "../controller/AuthorizeController.js";
+import {PermissionService} from "../services/PermissionService.js";
 </script>
 
 <template>
   <header>
-    <img src="./../assets/logos/main-logo.svg" alt="" width="30" height="30">
+    <a href="/">
+      <img src="./../assets/logos/main-logo.svg" alt="" width="30" height="30">
+    </a>
     <div>
-      <a href="#">Реестр животных</a>
+      <router-link
+          v-if="PermissionService.can('read-animal')"
+          to="/animal-registry"
+          class="pi-nav-items__item"
+      >
+        Реестр животных
+      </router-link>
     </div>
     <div>
-      <a href="#">Реестр организаций</a>
+      <router-link
+          v-if="PermissionService.can('read-contract')"
+          to="/contact-registry"
+          class="pi-nav-items__item"
+      >
+        Реестр контактов
+      </router-link>
     </div>
     <div>
-      <a href="#">Реестр пользователей</a>
-    </div>
-    <div>
-      <a href="#">Реестр реестров</a>
+      <router-link
+          v-if="PermissionService.can('read-organization')"
+          to="/organization-registry"
+          class="pi-nav-items__item"
+      >
+        Реестр организаций
+      </router-link>
     </div>
     <div>
       <a @click="AuthorizeController.out()" href="#">Выйти</a>

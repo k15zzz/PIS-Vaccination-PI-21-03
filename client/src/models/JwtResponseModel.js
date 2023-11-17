@@ -1,9 +1,12 @@
+import {PermissionRepository} from "../repositorys/PermissionRepository.js";
+
 export class JwtResponseModel {
     userId = null; 
     accessToken = null;
     login = null;
     status = false;
     time = null;
+    scoped = [];
     
     static getJwtResponse() {
         let jwtStorage = localStorage.getItem("access");
@@ -15,20 +18,23 @@ export class JwtResponseModel {
         jwtModel.accessToken = jwtJson.accessToken;
         jwtModel.login = jwtJson.login;
         jwtModel.status = jwtJson.status;
+        jwtModel.scoped = jwtJson.scoped;
         return jwtModel;
     }
     
-    saveLocalStorage() {
+    async saveLocalStorage() {
         if (this.accessToken) 
-            localStorage.setItem("access", this._buildJsonResponse());
+            localStorage.setItem("access", await this._buildJsonResponse());
         return this;
     }
-    
-    _buildJsonResponse() {
+
+    async _buildJsonResponse() {
         return JSON.stringify({
+            userId: this.userId,
             accessToken: this.accessToken,
             login: this.login,
             status: this.status,
+            scoped: await PermissionRepository.scoped(this.userId),
             time: this.time
         });
     }

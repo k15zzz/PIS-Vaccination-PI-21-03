@@ -18,7 +18,7 @@ export class AuthorizeController {
             return;
         }
 
-        jwtResponseModel.saveLocalStorage();
+        await jwtResponseModel.saveLocalStorage();
         window.location = "/";
     }
 

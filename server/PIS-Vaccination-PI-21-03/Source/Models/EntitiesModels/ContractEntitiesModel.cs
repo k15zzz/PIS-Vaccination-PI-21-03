@@ -3,7 +3,7 @@ using PIS_Vaccination_PI_21_03.Source.Repository;
 
 namespace PIS_Vaccination_PI_21_03.Source.Models;
 
-[Table("сontract")]
+[Table("contract")]
 public class ContractEntitiesModel
 {
     [Column("id")]
@@ -18,9 +18,9 @@ public class ContractEntitiesModel
     public int FkExecutor {get; set; }
     [Column("fk_org_client")]
     public int FkClient {get; set; }
-    [ForeignKey("fk_org_executor")]
+    [ForeignKey("FkExecutor")]
     public OrganizationEntitiesModel Executor { get; set; }
-    [ForeignKey("fk_org_client")]
+    [ForeignKey("FkClient")]
     public OrganizationEntitiesModel Client { get; set; }
     
     public static implicit operator ContractEntitiesModel(ContractViewModel viewNodel)

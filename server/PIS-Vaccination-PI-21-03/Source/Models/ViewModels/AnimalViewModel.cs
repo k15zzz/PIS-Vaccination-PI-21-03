@@ -1,4 +1,6 @@
-﻿namespace PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
+﻿using PIS_Vaccination_PI_21_03.Source.Repository;
+
+namespace PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
 
 public class AnimalViewModel
 {
@@ -12,4 +14,25 @@ public class AnimalViewModel
     public string? Photos { get; set; }
     public string? SpecialMarks { get; set; }
     public int FkTown { get; set; }
+    public string? Town { get; set; }
+    
+    public static implicit operator AnimalViewModel(AnimalEntitiesModel entitiesModel)
+    {
+        var m = new AnimalViewModel();
+        m.Id = entitiesModel.Id;
+        m.RegNum = entitiesModel.RegNum;
+        m.Category = entitiesModel.Category;
+        m.Sex = entitiesModel.Sex;
+        m.YearBirth = entitiesModel.YearBirth;
+        m.ElectronicChipNumber = entitiesModel.ElectronicChipNumber;
+        m.Name = entitiesModel.Name;
+        m.Photos = entitiesModel.Photos;
+        m.SpecialMarks = entitiesModel.SpecialMarks;
+        m.FkTown = entitiesModel.FkTown;
+        using (var db = new AppDbContext())
+        {
+            m.Town = db.Towns.Find(entitiesModel.FkTown).Name;
+        }
+        return m;
+    }
 }

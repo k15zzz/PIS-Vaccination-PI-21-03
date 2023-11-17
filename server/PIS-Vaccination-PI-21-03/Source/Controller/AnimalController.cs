@@ -14,11 +14,22 @@ public class AnimalController : ControllerBase
     [ActionName("add-animal")]
     public async Task<IActionResult> AddAnimal([FromBody] AnimalViewModel newAnimal) =>
         Ok(new AnimalRepository().CreateAsync(newAnimal));
-    
+
     [HttpGet]
     // [ScopedPermission("read-animal")]
     [ActionName("list")]
-    public async Task<IActionResult> List() => Ok(new AnimalRepository().ReadTableAsync());
+    public async Task<IActionResult> List()
+    { 
+        var list = AnimalRepository.ReadList();
+        var result = new List<AnimalViewModel>();
+
+        foreach (var animalEntities in list)
+        {
+            result.Add(animalEntities);
+        }
+        
+        return Ok(result);
+    }
 
     [HttpPut("{id}")] [ActionName("update-animal")]
     public async Task<IActionResult> UpdateAnimal([FromBody] JsonContent animalModel, [FromRoute] int id)

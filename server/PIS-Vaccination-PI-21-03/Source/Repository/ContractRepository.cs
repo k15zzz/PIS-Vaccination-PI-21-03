@@ -4,7 +4,7 @@ using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
-public class ContractRepository:IRepository<ContractEntitiesModel>
+public class ContractRepository
 {
     public int CreateAsync(ContractEntitiesModel model)
     {
@@ -19,9 +19,18 @@ public class ContractRepository:IRepository<ContractEntitiesModel>
         }
     }
 
-    public Task<List<ContractEntitiesModel>> ReadTableAsync()
+    public static List<ContractEntitiesModel> ReadList()
     {
-        throw new NotImplementedException();
+        List<ContractEntitiesModel> list;
+        
+        using (var context = new AppDbContext()) 
+        { 
+            list = context
+                .Contracts
+                .ToList();
+        } 
+        
+        return list;
     }
 
     public Task<ContractEntitiesModel> ReadItemAsync(int id)

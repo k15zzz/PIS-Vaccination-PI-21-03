@@ -24,6 +24,7 @@
 - [Аутентификация с помощью JWT-токенов](https://metanit.com/sharp/aspnet6/13.2.php)
 - [Документация по NUXT](https://nuxt.com/)
 - [Валидация на Vue3](https://vee-validate.logaretm.com/v4/)
+- [Стили по БЭМ](https://habr.com/ru/companies/ruvds/articles/347194/)
 
 ## Запуск проекта
 

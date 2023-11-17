@@ -17,7 +17,18 @@ public class ContractController : ControllerBase
     
     [HttpGet]
     [ActionName("list")]
-    public async Task<IActionResult> List() => Ok(new ContractRepository().ReadTableAsync());
+    public async Task<IActionResult> List()
+    { 
+        var list = ContractRepository.ReadList();
+        var result = new List<ContractViewModel>();
+
+        foreach (var entitiesModel in list)
+        {
+            result.Add(entitiesModel);
+        }
+        
+        return Ok(result);
+    }
     
     [HttpPut("{id}")] [ActionName("update-contract")]
     public async Task<IActionResult> UpdateContract([FromBody] JsonContent contractModel, [FromRoute] int id)

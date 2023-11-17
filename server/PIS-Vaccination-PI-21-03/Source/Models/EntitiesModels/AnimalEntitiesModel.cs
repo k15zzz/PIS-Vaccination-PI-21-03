@@ -42,7 +42,10 @@ public class AnimalEntitiesModel
         _entetyModel.Photos = viewNodel.Photos;
         _entetyModel.SpecialMarks = viewNodel.SpecialMarks;
         _entetyModel.FkTown = viewNodel.FkTown;
-        _entetyModel.Town = new AppDbContext().Towns.Find(viewNodel.FkTown);
+        using (var context = new AppDbContext())
+        {
+            _entetyModel.Town = context.Towns.Find(viewNodel.FkTown);
+        }
         return _entetyModel;
     }
 }
