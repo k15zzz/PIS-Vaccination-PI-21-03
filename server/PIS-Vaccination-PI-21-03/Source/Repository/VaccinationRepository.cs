@@ -22,16 +22,24 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         throw new NotImplementedException();
     }
 
-    public Task<VaccinationEntitiesModel> ReadItemAsync(int id)
+    public async Task<VaccinationEntitiesModel> ReadItemAsync(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var vaccination = context.Vaccinations.FindAsync(id).Result; // То что нужно вывести
+            if (vaccination != null)
+            {
+                return vaccination;
+            }
+            throw new NotImplementedException();
+        }
     }
 
     public void UpdateAsync(int id, JsonContent newModel)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id);
+            var vaccination = context.Vaccinations.FindAsync(id).Result;
             if (vaccination != null)
             {
                 var updatedVaccination =
@@ -46,13 +54,16 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id).Result;
+            var vaccination = context.Vaccinations.FindAsync(id).Result; // То что нужно удалить
             if (vaccination != null)
             {
                 context.Vaccinations.Remove(vaccination);
                 context.SaveChangesAsync();
             }
-            // Если не нашло, вывести сообщение об отсутствии вакцинации
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

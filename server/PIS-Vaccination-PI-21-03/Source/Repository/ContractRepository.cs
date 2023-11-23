@@ -33,16 +33,24 @@ public class ContractRepository
         return list;
     }
 
-    public Task<ContractEntitiesModel> ReadItemAsync(int id)
+    public async Task<ContractEntitiesModel> ReadItemAsync(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var contract = context.Contracts.FindAsync(id).Result; // То что нужно вывести
+            if (contract != null)
+            {
+                return contract;
+            }
+            throw new NotImplementedException();
+        }
     }
 
     public void UpdateAsync(int id, JsonContent newModel)
     {
         using (var context = new AppDbContext())
         {
-            var contract = context.Contracts.FindAsync(id);
+            var contract = context.Contracts.FindAsync(id).Result;
             if (contract != null)
             {
                 var updatedContract =
@@ -57,13 +65,16 @@ public class ContractRepository
     {
         using (var context = new AppDbContext())
         {
-            var contract = context.Contracts.FindAsync(id).Result;
+            var contract = context.Contracts.FindAsync(id).Result; // То что нужно удалить
             if (contract != null)
             {
                 context.Contracts.Remove(contract);
                 context.SaveChangesAsync();
             }
-            // Если не нашло, вывести сообщение об отсутствии контракта
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }

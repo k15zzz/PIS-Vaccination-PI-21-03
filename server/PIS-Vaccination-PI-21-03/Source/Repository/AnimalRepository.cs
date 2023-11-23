@@ -32,23 +32,34 @@ public class AnimalRepository
         return list;
     }
 
-    public Task<AnimalEntitiesModel> ReadItemAsync(int id)
+    public async Task<AnimalEntitiesModel> ReadItemAsync(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext())
+        {
+            var animal = context.Animals.FindAsync(id).Result; // То что нужно вывести
+            if (animal != null)
+            {
+                return animal;
+            }
+            throw new NotImplementedException();
+        }
     }
 
     public void UpdateAsync(int id, JsonContent newModel) 
     {
         using (var context = new AppDbContext())
         {
-            var animal = context.Animals.FindAsync(id); //то, что нужно обновить
+            var animal = context.Animals.FindAsync(id).Result; //то, что нужно обновить
             if (animal != null)
             {
                 var updatedAnimal = JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); //то, чем обновляем
                 context.Entry(animal).CurrentValues.SetValues(updatedAnimal);
                 context.SaveChangesAsync();
             }
-            //сделать что-то, еасли не найдено
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 
@@ -56,13 +67,16 @@ public class AnimalRepository
     {
         using (var context = new AppDbContext())
         {
-            var animal = context.Animals.FindAsync(id).Result;
+            var animal = context.Animals.FindAsync(id).Result; // То что нужно удалить
             if (animal != null)
             {
                 context.Animals.Remove(animal);
                 context.SaveChangesAsync();
             }
-            // Если не нашло, вывести сообщение об отсутствии животного
+            else
+            {
+                throw new NotImplementedException();
+            }
         }
     }
 }
