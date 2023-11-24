@@ -17,6 +17,8 @@ onBeforeMount(async () => {
     <model-registry
         :models="models"
         :model="OrganizationModel"
+        router-create="organizationCreate"
+        title="Реестр организаций"
     />
   </block>
 </template>

@@ -11,16 +11,25 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 
 public class OrganizationController : ControllerBase
 {
+    [HttpGet]
+    [ActionName("read")]
+    public async Task<IActionResult> Read(int id)
+    { 
+        return Ok((OrganizationViewModel)OrganizationRepository.Read(id));
+    }
+    
     [HttpPost]
-    [ActionName("add-organization")]
-    public async Task<IActionResult> AddOrganization([FromBody] OrganizationViewModel newOrganization) =>
-        Ok(new OrganizationRepository().CreateAsync(newOrganization));
+    [ActionName("create")]
+    public async Task<IActionResult> Create([FromBody] OrganizationViewModel newOrganization)
+    {
+        return Ok(OrganizationRepository.Create(newOrganization));
+    }
     
     [HttpGet]
     [ActionName("list")]
     public async Task<IActionResult> List()
     { 
-        var list = OrganizationRepository.ReadList();
+        var list = OrganizationRepository.List();
         var result = new List<OrganizationViewModel>();
 
         foreach (var entitiesModel in list)
@@ -31,16 +40,17 @@ public class OrganizationController : ControllerBase
         return Ok(result);
     }
     
-    [HttpPut("{id}")] [ActionName("update-organization")]
-    public async Task<IActionResult> UpdateOrganization([FromBody] JsonContent organizationModel, [FromRoute] int id)
-    {
-        new OrganizationRepository().UpdateAsync(id, organizationModel);
-        return Ok();
+    [HttpPut] 
+    [ActionName("update")]
+    public async Task<IActionResult> Update([FromBody] OrganizationViewModel organizationModel)
+    { 
+        return Ok((OrganizationViewModel)OrganizationRepository.Update(organizationModel));
     }
-    [HttpPut("{id}")] [ActionName("delete-organization")]
-    public async Task<IActionResult> DeleteOrganization([FromRoute] int id)
-    {
-        new OrganizationRepository().DeleteAsync(id);
-        return Ok();
+    
+    [HttpDelete] 
+    [ActionName("delete")]
+    public async Task<IActionResult> Delete(int id)
+    { 
+        return Ok(OrganizationRepository.Delete(id));
     }
 }

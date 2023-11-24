@@ -1,4 +1,6 @@
-export class OrganizationModel {
+import {ModelHelper} from "./ModelHelper.js";
+
+export class OrganizationModel extends ModelHelper {
     id = null;
     fullName = null;
     inn = null;
@@ -26,20 +28,11 @@ export class OrganizationModel {
         update: "update-organization",
         delete: "delete-organization"
     }
-    
-    getValue(params) {
-        return this[params];
-    }
-    
-    static getTitle(params) {
-        return this._titleParams[params];
-    }
 
-    static getParams() {
-        return Object.keys(this._titleParams);
-    }
-
-    static getPermission(type) {
-        return this._permissions[type];
+    static _routerAction = {
+        create: "organizationCreate",
+        read: "organizationRead",
+        update: "organizationUpdate",
+        delete: "organizationDelete"
     }
 }

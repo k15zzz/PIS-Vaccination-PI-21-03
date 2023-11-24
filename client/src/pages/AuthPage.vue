@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { reactive } from "vue";
-
 import Block from "./../components/ui/Block.vue";
 import InputText from "./../components/ui/InputText.vue";
 import AppButton from "./../components/ui/AppButton.vue";
-import {AuthorizeController} from "../controller/AuthorizeController";
+import {AuthorizeController} from "../controller/AuthorizeController.js";
 
 const controller = new AuthorizeController();
 </script>

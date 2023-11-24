@@ -1,8 +1,8 @@
 <template>
     <button :style="{
-        backgroundColor: disable ?  backgroundColor : '#FFFFFF',
-        color: disable ?  color : '#52616B',
-        cursor: !disable ? 'default' : 'pointer'
+        backgroundColor: disabled ?  backgroundColor : '#FFFFFF',
+        color: disabled ?  color : '#52616B',
+        cursor: !disabled ? 'default' : 'pointer'
     }">
         <slot></slot>
     </button>
@@ -12,7 +12,7 @@
 defineProps({
     backgroundColor: String,
     color: String,
-    disable: {
+    disabled: {
         type: Boolean,
         default: true
     }

@@ -5,6 +5,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<AnimalCategoryEntitiesModel> AnimalCategory { get; set; } = null!;
     public DbSet<AnimalEntitiesModel> Animals { get; set; } = null!;
     public DbSet<ContractEntitiesModel> Contracts { get; set; } = null!;
     public DbSet<OrganizationEntitiesModel> Organizations { get; set; } = null!;

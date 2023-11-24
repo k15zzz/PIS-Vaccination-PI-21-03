@@ -7,13 +7,21 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 
 [ApiController]
 [Route("/api/v1/[controller]/[action]")]
-
 public class ContractController : ControllerBase
 {
+    [HttpGet]
+    [ActionName("read")]
+    public async Task<IActionResult> Read(int id)
+    {
+        return Ok((ContractViewModel)ContractRepository.Read(id));
+    }
+    
     [HttpPost]
-    [ActionName("add-contract")]
-    public async Task<IActionResult> AddContract([FromBody] ContractViewModel newContract) =>
-        Ok(new ContractRepository().CreateAsync(newContract));
+    [ActionName("create")]
+    public async Task<IActionResult> Create([FromBody] ContractViewModel newContract)
+    {
+        return Ok(ContractRepository.Create(newContract));
+    }
     
     [HttpGet]
     [ActionName("list")]
@@ -30,16 +38,17 @@ public class ContractController : ControllerBase
         return Ok(result);
     }
     
-    [HttpPut("{id}")] [ActionName("update-contract")]
-    public async Task<IActionResult> UpdateContract([FromBody] JsonContent contractModel, [FromRoute] int id)
-    {
-        new ContractRepository().UpdateAsync(id, contractModel);
-        return Ok();
+    [HttpPut] 
+    [ActionName("update")]
+    public async Task<IActionResult> Update([FromBody] ContractViewModel contractModel)
+    { 
+        return Ok((ContractViewModel)ContractRepository.Update(contractModel));
     }
-    [HttpPut("{id}")] [ActionName("delete-contract")]
-    public async Task<IActionResult> DeleteContract([FromRoute] int id)
-    {
-        new ContractRepository().DeleteAsync(id);
-        return Ok();
+    
+    [HttpDelete] 
+    [ActionName("delete")]
+    public async Task<IActionResult> Delete(int id)
+    { 
+        return Ok(ContractRepository.Delete(id));
     }
 }

@@ -22,7 +22,7 @@ public class OrganizationEntitiesModel
     [Column("fk_town")]
     public int FkTown { get; set; }
     [ForeignKey("FkTown")]
-    public TownEntitiesModel Town { get; set; }
+    public TownEntitiesModel? Town { get; set; }
     
     public static implicit operator OrganizationEntitiesModel(OrganizationViewModel viewNodel)
     {
@@ -35,7 +35,6 @@ public class OrganizationEntitiesModel
         _entetyModel.Type = viewNodel.Type;
         _entetyModel.LegalEntity = viewNodel.LegalEntity;
         _entetyModel.FkTown = viewNodel.FkTown;
-        _entetyModel.Town = new AppDbContext().Towns.Find(viewNodel.FkTown);
         return _entetyModel;
     }
 }

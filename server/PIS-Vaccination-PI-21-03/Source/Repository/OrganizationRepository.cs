@@ -6,11 +6,12 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class OrganizationRepository
 {
-    public int CreateAsync(OrganizationEntitiesModel model)
+    public static int Create(OrganizationEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
-            db.Organizations.AddAsync(model);
+            db.Organizations.Add(model);
+            db.SaveChanges();
             return db.Organizations
                 .OrderBy(t => t.Id)
                 .Last()
@@ -18,7 +19,7 @@ public class OrganizationRepository
         }
     }
 
-    public static List<OrganizationEntitiesModel> ReadList()
+    public static List<OrganizationEntitiesModel> List()
     {
         List<OrganizationEntitiesModel> list;
         
@@ -32,48 +33,48 @@ public class OrganizationRepository
         return list;
     }
 
-    public async Task<OrganizationEntitiesModel> ReadItemAsync(int id)
+    public static OrganizationEntitiesModel Read(int id)
     {
-        using (var context = new AppDbContext())
-        {
-            var organization = context.Organizations.FindAsync(id).Result; // То что нужно вывести
-            if (organization != null)
-            {
-                return organization;
-            } 
-            throw new NotImplementedException();
-        }
+        using (var context = new AppDbContext()) 
+        { 
+            return context
+                .Organizations
+                .Find(id);
+        } 
     }
 
-    public void UpdateAsync(int id, JsonContent newModel)
+    public static OrganizationEntitiesModel Update(OrganizationEntitiesModel newModel)
     {
         using (var context = new AppDbContext())
         {
-            var organization = context.Organizations.FindAsync(id).Result; 
+            var organization = context.Organizations.Find(newModel.Id); 
             if (organization != null)
             {
-                var updatedOrganization =
-                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); 
-                context.Entry(organization).CurrentValues.SetValues(updatedOrganization);
-                context.SaveChangesAsync();
-            }
-        }
-    }
-
-    public void DeleteAsync(int id)
-    {
-        using (var context = new AppDbContext())
-        {
-            var organization = context.Organizations.FindAsync(id).Result; // То что нужно удалить
-            if (organization != null)
-            {
-                context.Organizations.Remove(organization);
-                context.SaveChangesAsync();
+                context.Entry(organization).CurrentValues.SetValues(newModel);
+                context.SaveChanges();
             }
             else
             {
-                throw new NotImplementedException();
+                return new OrganizationEntitiesModel();
             }
+            
+            return context.Organizations.Find(newModel.Id);
+        }
+    }
+
+    public static int Delete(int id)
+    {
+        using (var context = new AppDbContext())
+        {
+            var organization = context.Organizations.Find(id);
+            if (organization != null)
+            {
+                context.Organizations.Remove(organization);
+                context.SaveChanges();
+                return 1;
+            }
+
+            return 0;
         }
     }
 }

@@ -10,17 +10,26 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 [Route("/api/v1/[controller]/[action]")]
 public class AnimalController : ControllerBase
 {
+    [HttpGet]
+    [ActionName("read")]
+    public async Task<IActionResult> Read(int id)
+    {
+        return Ok((AnimalViewModel)AnimalRepository.Read(id));
+    }
+    
     [HttpPost]
-    [ActionName("add-animal")]
-    public async Task<IActionResult> AddAnimal([FromBody] AnimalViewModel newAnimal) =>
-        Ok(new AnimalRepository().CreateAsync(newAnimal));
+    [ActionName("create")]
+    public async Task<IActionResult> Create([FromBody] AnimalViewModel newAnimal)
+    {
+        return Ok(AnimalRepository.Create(newAnimal));
+    }
 
     [HttpGet]
     // [ScopedPermission("read-animal")]
     [ActionName("list")]
     public async Task<IActionResult> List()
     { 
-        var list = AnimalRepository.ReadList();
+        var list = AnimalRepository.List();
         var result = new List<AnimalViewModel>();
 
         foreach (var animalEntities in list)
@@ -31,19 +40,18 @@ public class AnimalController : ControllerBase
         return Ok(result);
     }
 
-    [HttpPut("{id}")] [ActionName("update-animal")]
-    public async Task<IActionResult> UpdateAnimal([FromBody] JsonContent animalModel, [FromRoute] int id)
+    [HttpPut] 
+    [ActionName("update")]
+    public async Task<IActionResult> Update([FromBody] AnimalViewModel animalModel)
     {
-        new AnimalRepository().UpdateAsync(id, animalModel);
-        return Ok();
+        return Ok((AnimalViewModel)AnimalRepository.Update(animalModel));
     }
 
-    [HttpPut("{id}")]
-    [ActionName("delete-animal")]
-    public async Task<IActionResult> DeleteAnimal([FromRoute] int id)
-    {
-        new AnimalRepository().DeleteAsync(id);
-        return Ok();
+    [HttpDelete]
+    [ActionName("delete")]
+    public async Task<IActionResult> Delete(int id)
+    { 
+        return Ok(AnimalRepository.Delete(id));
     }
 }
 

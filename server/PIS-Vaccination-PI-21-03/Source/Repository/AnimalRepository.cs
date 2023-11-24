@@ -6,11 +6,12 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AnimalRepository
 {
-    public int CreateAsync(AnimalEntitiesModel model)
+    public static int Create(AnimalEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
-            db.Animals.AddAsync(model);
+            db.Animals.Add(model);
+            db.SaveChanges();
             return db.Animals
                 .OrderBy(t => t.Id)
                 .Last()
@@ -18,7 +19,7 @@ public class AnimalRepository
         }
     }
 
-    public static List<AnimalEntitiesModel> ReadList()
+    public static List<AnimalEntitiesModel> List()
     { 
         List<AnimalEntitiesModel> list;
         
@@ -32,51 +33,50 @@ public class AnimalRepository
         return list;
     }
 
-    public async Task<AnimalEntitiesModel> ReadItemAsync(int id)
+    public static AnimalEntitiesModel Read(int id)
     {
-        using (var context = new AppDbContext())
-        {
-            var animal = context.Animals.FindAsync(id).Result; // То что нужно вывести
-            if (animal != null)
-            {
-                return animal;
-            }
-            throw new NotImplementedException();
-        }
+        using (var context = new AppDbContext()) 
+        { 
+            return context
+                .Animals
+                .Find(id);
+        } 
     }
 
-    public void UpdateAsync(int id, JsonContent newModel) 
+    public static AnimalEntitiesModel Update(AnimalEntitiesModel newModel) 
     {
         using (var context = new AppDbContext())
         {
-            var animal = context.Animals.FindAsync(id).Result; //то, что нужно обновить
+            var animal = context.Animals.Find(newModel.Id);
             if (animal != null)
             {
-                var updatedAnimal = JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); //то, чем обновляем
-                context.Entry(animal).CurrentValues.SetValues(updatedAnimal);
-                context.SaveChangesAsync();
+                context.Entry(animal).CurrentValues.SetValues(newModel);
+                context.SaveChanges();
             }
             else
             {
-                throw new NotImplementedException();
+                return new AnimalEntitiesModel();
             }
+            
+            return context
+                .Animals
+                .Find(newModel.Id);
         }
     }
 
-    public void DeleteAsync(int id)
+    public static int Delete(int id)
     {
         using (var context = new AppDbContext())
         {
-            var animal = context.Animals.FindAsync(id).Result; // То что нужно удалить
+            var animal = context.Animals.Find(id);
             if (animal != null)
             {
                 context.Animals.Remove(animal);
-                context.SaveChangesAsync();
+                context.SaveChanges();
+                return 1;
             }
-            else
-            {
-                throw new NotImplementedException();
-            }
+
+            return 0;
         }
     }
 }

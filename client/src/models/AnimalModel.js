@@ -1,7 +1,10 @@
-export class AnimalModel {
+import {ModelHelper} from "./ModelHelper.js";
+
+export class AnimalModel extends ModelHelper {
     id = null;
     regNum = null;
-    category = null;
+    animalCategory = null;
+    fkAnimalCategory = null;
     sex = null;
     yearBirth = null;
     electronicChipNumber = null;
@@ -29,19 +32,10 @@ export class AnimalModel {
         delete: "delete-animal"
     }
     
-    getValue(params) {
-        return this[params];
-    }
-    
-    static getTitle(params) {
-        return this._titleParams[params];
-    }
-
-    static getParams() {
-        return Object.keys(this._titleParams);
-    }
-
-    static getPermission(type) {
-        return this._permissions[type];
+    static _routerAction = {
+        create: "animalCreate",
+        read: "animalRead",
+        update: "animalUpdate",
+        delete: "animalDelete"
     }
 }

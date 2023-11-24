@@ -17,6 +17,8 @@ onBeforeMount(async () => {
     <model-registry 
         :models="models"
         :model="AnimalModel"
+        router-create="animalCreate"
+        title="Реестр животных"
     />
   </block>
 </template>

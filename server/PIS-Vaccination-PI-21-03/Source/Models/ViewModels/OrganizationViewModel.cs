@@ -12,7 +12,7 @@ public class OrganizationViewModel
     public string Type { get; set; }
     public bool LegalEntity { get; set; }
     public int FkTown { get; set; }
-    public string Town { get; set; }
+    public string? Town { get; set; }
     
     public static implicit operator OrganizationViewModel(OrganizationEntitiesModel entitiesModel)
     {

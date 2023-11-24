@@ -23,20 +23,15 @@ public class ContractEntitiesModel
     [ForeignKey("FkClient")]
     public OrganizationEntitiesModel Client { get; set; }
     
-    public static implicit operator ContractEntitiesModel(ContractViewModel viewNodel)
+    public static implicit operator ContractEntitiesModel(ContractViewModel viewModel)
     {
         ContractEntitiesModel _entetyModel = new ContractEntitiesModel();
-        _entetyModel.Id = viewNodel.Id;
-        _entetyModel.Number = viewNodel.Number;
-        _entetyModel.StartDate = viewNodel.StartDate;
-        _entetyModel.EndDate = viewNodel.EndDate;
-        _entetyModel.FkExecutor = viewNodel.FkExecutor;
-        _entetyModel.FkClient = viewNodel.FkClient;
-        using (var db = new AppDbContext())
-        {
-            _entetyModel.Executor = db.Organizations.Find(viewNodel.FkExecutor);
-            _entetyModel.Client = db.Organizations.Find(viewNodel.FkClient);
-        }
+        _entetyModel.Id = viewModel.Id;
+        _entetyModel.Number = viewModel.Number;
+        _entetyModel.StartDate = DateTime.SpecifyKind(viewModel.StartDate, DateTimeKind.Utc);
+        _entetyModel.EndDate = DateTime.SpecifyKind(viewModel.EndDate, DateTimeKind.Utc);
+        _entetyModel.FkExecutor = viewModel.FkExecutor;
+        _entetyModel.FkClient = viewModel.FkClient;
         return _entetyModel;
     }
 }

@@ -6,7 +6,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class StatisticRepository
 {
-    static public List<VaccinationDTO> GetDateStatistic(DateTime dateStart, DateTime dateFinish, List<int> town)
+    public static List<VaccinationDTO> GetDateStatistic(DateTime dateStart, DateTime dateFinish, List<int> town)
     {
 
         var result = new List<VaccinationDTO>();

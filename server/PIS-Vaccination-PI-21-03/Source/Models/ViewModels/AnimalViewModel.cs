@@ -6,14 +6,15 @@ public class AnimalViewModel
 {
     public int Id { get; set; }
     public long? RegNum { get; set; }
-    public bool? Category { get; set; }
     public bool? Sex { get; set; }
-    public DateTime? YearBirth { get; set; }
+    public DateTime YearBirth { get; set; }
     public string? ElectronicChipNumber { get; set; }
     public string? Name { get; set; }
     public string? Photos { get; set; }
     public string? SpecialMarks { get; set; }
+    public int FkAnimalCategory { get; set; }
     public int FkTown { get; set; }
+    public string? AnimalCategory { get; set; }
     public string? Town { get; set; }
     
     public static implicit operator AnimalViewModel(AnimalEntitiesModel entitiesModel)
@@ -21,9 +22,9 @@ public class AnimalViewModel
         var m = new AnimalViewModel();
         m.Id = entitiesModel.Id;
         m.RegNum = entitiesModel.RegNum;
-        m.Category = entitiesModel.Category;
         m.Sex = entitiesModel.Sex;
         m.YearBirth = entitiesModel.YearBirth;
+        m.FkAnimalCategory = entitiesModel.FkAnimalCategory;
         m.ElectronicChipNumber = entitiesModel.ElectronicChipNumber;
         m.Name = entitiesModel.Name;
         m.Photos = entitiesModel.Photos;
@@ -31,6 +32,7 @@ public class AnimalViewModel
         m.FkTown = entitiesModel.FkTown;
         using (var db = new AppDbContext())
         {
+            m.AnimalCategory = db.AnimalCategory.Find(entitiesModel.FkAnimalCategory).Name;
             m.Town = db.Towns.Find(entitiesModel.FkTown).Name;
         }
         return m;

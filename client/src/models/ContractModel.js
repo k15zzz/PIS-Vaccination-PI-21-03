@@ -1,4 +1,6 @@
-export class ContractModel {
+import {ModelHelper} from "./ModelHelper.js";
+
+export class ContractModel extends ModelHelper {
     id = null;
     number = null;
     startDate = null;
@@ -23,20 +25,11 @@ export class ContractModel {
         update: "update-contract",
         delete: "delete-contract"
     }
-    
-    getValue(params) {
-        return this[params];
-    }
-    
-    static getTitle(params) {
-        return this._titleParams[params];
-    }
 
-    static getParams() {
-        return Object.keys(this._titleParams);
-    }
-
-    static getPermission(type) {
-        return this._permissions[type];
+    static _routerAction = {
+        create: "contractCreate",
+        read: "contractRead",
+        update: "contractUpdate",
+        delete: "contractDelete"
     }
 }

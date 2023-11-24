@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS organizations_contracts;
 DROP TABLE IF EXISTS vaccination;
 DROP TABLE IF EXISTS contract;
 DROP TABLE IF EXISTS animal;
+DROP TABLE IF EXISTS animal_category;
 DROP TABLE IF EXISTS towns_service;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organization;
@@ -9,6 +10,7 @@ DROP TABLE IF EXISTS town;
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
 DROP TABLE IF EXISTS role;
+DROP TABLE IF EXISTS logging;
 
 CREATE TABLE role (
     id serial primary key,
@@ -22,12 +24,12 @@ CREATE TABLE town (
 
 CREATE TABLE organization (
     id serial primary key,
-    full_name varchar(20),
+    full_name varchar(100),
     inn char(10),
     kpp char(8),
     address varchar(100),
     type varchar(100),
-    legal_entity bit(1),
+    legal_entity bool,
     fk_town int not null,
     foreign key (fk_town) references town (id)
 );
@@ -42,18 +44,24 @@ CREATE TABLE users (
     foreign key (fk_org) references organization (id)
 );
 
+CREATE TABLE animal_category (
+    id serial primary key,
+    name varchar(155) not null 
+);
+
 CREATE TABLE animal (
     id serial primary key,
     reg_num int8,
-    category bit(1),
-    sex bit(1),
+    sex bool,
     year_birth date,
     electronic_chip_number varchar(15),
     name varchar(100),
     photos varchar(1000),
     special_marks varchar(200),
+    fk_animal_category int not null,
     fk_town int not null,
-    foreign key (fk_town) references town (id)
+    foreign key (fk_town) references town (id),
+    foreign key (fk_animal_category) references animal_category (id)
 );
 
 CREATE TABLE towns_service (
@@ -117,6 +125,12 @@ CREATE TABLE logging (
     object_instance_id INT,
     object_description_after_action TEXT
 );
+
+INSERT INTO animal_category
+    (id, name)
+VALUES
+    (1, 'Кошка'),
+    (2, 'Собака');
 
 INSERT INTO role
     (id, name)
@@ -230,9 +244,9 @@ INSERT INTO town (name) VALUES ('Тюмень'), ('Новосибирск');
 INSERT INTO organization
     (full_name, inn, kpp, address, type, legal_entity, fk_town)
 VALUES
-    ('ООО Аргон и сварка', '2355786', '4567', 'ул. Прокопия. д. 2', 'Приют', b'1', 1),
-    ('ООО Клеточный кот', '442342', '42813', 'ул. Прокопия. д. 1', 'Приют', b'1', 2),
-    ('ИП Конец бездомным', '443342', '43813', 'ул. Прокопия. д. 3', 'Заявитель', b'0', 1);
+    ('ООО Аргон и сварка', '2355786', '4567', 'ул. Прокопия. д. 2', 'Приют', true, 1),
+    ('ООО Клеточный кот', '442342', '42813', 'ул. Прокопия. д. 1', 'Приют', true, 2),
+    ('ИП Конец бездомным', '443342', '43813', 'ул. Прокопия. д. 3', 'Заявитель', false, 1);
 
 INSERT INTO users
     (login, password, fk_org, fk_role)
@@ -242,11 +256,11 @@ VALUES
     ('towntest', '1', 1, 9);
 
 INSERT INTO animal
-    (reg_num, category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)
+    (reg_num, fk_animal_category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)
 VALUES
-    ('123123', b'1', b'1', '2005-01-01', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1),
-    ('345234', b'1', b'0', '2004-01-01', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1),
-    ('123456', b'0', b'1', '2000-01-01', '2342387', 'Аба', 'на фотках собака, красивая', 'рыжая, красивая, отсутствует нос и хвост', 2);
+    ('123123', 1, true, '2005-01-01', '7423423', 'Варя', 'на фотках кошка', 'черная, красивая, отсутствует хвост', 1),
+    ('345234', 1, true, '2004-01-01', '74234423', 'Падик', 'на фотках кошка', 'серая, красивая, отсутствует нос', 1),
+    ('123456', 2, false, '2000-01-01', '2342387', 'Аба', 'на фотках собака, красивая', 'рыжая, красивая, отсутствует нос и хвост', 2);
 
 
 INSERT INTO towns_service (fk_town, service, price) VALUES

@@ -3,9 +3,9 @@ using PIS_Vaccination_PI_21_03.Source.Models;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
-public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
+public class VaccinationRepository
 {
-    public int CreateAsync(VaccinationEntitiesModel model)
+    public static int CreateAsync(VaccinationEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
@@ -17,29 +17,21 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         }
     }
 
-    public Task<List<VaccinationEntitiesModel>> ReadTableAsync()
+    public static List<VaccinationEntitiesModel> List()
     {
         throw new NotImplementedException();
     }
 
-    public async Task<VaccinationEntitiesModel> ReadItemAsync(int id)
+    public static VaccinationEntitiesModel Read(int id)
     {
-        using (var context = new AppDbContext())
-        {
-            var vaccination = context.Vaccinations.FindAsync(id).Result; // То что нужно вывести
-            if (vaccination != null)
-            {
-                return vaccination;
-            }
-            throw new NotImplementedException();
-        }
+        throw new NotImplementedException();
     }
 
-    public void UpdateAsync(int id, JsonContent newModel)
+    public static void Update(int id, JsonContent newModel)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id).Result;
+            var vaccination = context.Vaccinations.FindAsync(id);
             if (vaccination != null)
             {
                 var updatedVaccination =
@@ -50,19 +42,15 @@ public class VaccinationRepository : IRepository<VaccinationEntitiesModel>
         }
     }
 
-    public void DeleteAsync(int id)
+    public static void Delete(int id)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id).Result; // То что нужно удалить
+            var vaccination = context.Vaccinations.FindAsync(id).Result;
             if (vaccination != null)
             {
                 context.Vaccinations.Remove(vaccination);
                 context.SaveChangesAsync();
-            }
-            else
-            {
-                throw new NotImplementedException();
             }
         }
     }

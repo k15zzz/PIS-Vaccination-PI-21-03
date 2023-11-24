@@ -6,12 +6,12 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class ContractRepository
 {
-    public int CreateAsync(ContractEntitiesModel model)
+    public static int Create(ContractEntitiesModel model)
     {
-        // TODO: вставить чеки на джсон и соответсиве типа, ну или трай кач хотя бы
         using (var db = new AppDbContext())
         {
-            db.Contracts.AddAsync(model);
+            db.Contracts.Add(model);
+            db.SaveChanges(); 
             return db.Contracts
                 .OrderBy(t => t.Id)
                 .Last()
@@ -33,48 +33,49 @@ public class ContractRepository
         return list;
     }
 
-    public async Task<ContractEntitiesModel> ReadItemAsync(int id)
+    public static ContractEntitiesModel Read(int id)
     {
-        using (var context = new AppDbContext())
-        {
-            var contract = context.Contracts.FindAsync(id).Result; // То что нужно вывести
-            if (contract != null)
-            {
-                return contract;
-            }
-            throw new NotImplementedException();
-        }
+        using (var context = new AppDbContext()) 
+        { 
+            return context
+                .Contracts
+                .Find(id);
+        } 
     }
 
-    public void UpdateAsync(int id, JsonContent newModel)
+    public static ContractEntitiesModel Update(ContractEntitiesModel newModel)
     {
         using (var context = new AppDbContext())
         {
-            var contract = context.Contracts.FindAsync(id).Result;
+            var contract = context.Contracts.Find(newModel.Id);
             if (contract != null)
             {
-                var updatedContract =
-                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString()); 
-                context.Entry(contract).CurrentValues.SetValues(updatedContract);
-                context.SaveChangesAsync();
-            }
-        }
-    }
-
-    public void DeleteAsync(int id)
-    {
-        using (var context = new AppDbContext())
-        {
-            var contract = context.Contracts.FindAsync(id).Result; // То что нужно удалить
-            if (contract != null)
-            {
-                context.Contracts.Remove(contract);
-                context.SaveChangesAsync();
+                context.Entry(contract).CurrentValues.SetValues(newModel);
+                context.SaveChanges();
+                return context
+                    .Contracts
+                    .Find(newModel.Id);
             }
             else
             {
-                throw new NotImplementedException();
+                return new ContractEntitiesModel();
             }
+        }
+    }
+
+    public static int Delete(int id)
+    {
+        using (var context = new AppDbContext())
+        {
+            var contract = context.Contracts.Find(id);
+            if (contract != null)
+            {
+                context.Contracts.Remove(contract);
+                context.SaveChanges();
+                return 1;
+            }
+
+            return 0;
         }
     }
 }
