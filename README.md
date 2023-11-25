@@ -1,5 +1,13 @@
 # Проектирование ИС 6 семестр. ПИ-21-03 
 
+## Запуск проекта
+Находясь в рабочей директории:
+```
+$ docker compose up -d --build
+```
+Подключиться к базе данных и реализовать миграцию данных, 
+которые находятся в директории migrations 
+
 # Правила кода
 
 1) Комментируем код
@@ -11,7 +19,7 @@
 ## Стек
 
 - .NET 6 Web API 
-- NUXT 3
+- Vue 3.3.4
 - PostgreSQL 15
 - Nginx Latest
 - NodeJS 18.12.1-alpine
@@ -25,12 +33,6 @@
 - [Документация по NUXT](https://nuxt.com/)
 - [Валидация на Vue3](https://vee-validate.logaretm.com/v4/)
 - [Стили по БЭМ](https://habr.com/ru/companies/ruvds/articles/347194/)
-
-## Запуск проекта
-
-```
-$ docker compose up -d --build
-```
 
 ## Участники
 
