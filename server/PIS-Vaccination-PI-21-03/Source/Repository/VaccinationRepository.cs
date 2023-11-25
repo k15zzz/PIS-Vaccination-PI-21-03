@@ -5,11 +5,12 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class VaccinationRepository
 {
-    public static int CreateAsync(VaccinationEntitiesModel model)
+    public static int Create(VaccinationEntitiesModel model)
     {
         using (var db = new AppDbContext())
         {
-            db.Vaccinations.AddAsync(model);
+            db.Vaccinations.Add(model);
+            db.SaveChanges();
             return db.Vaccinations
                 .OrderBy(t => t.Id)
                 .Last()
@@ -19,39 +20,62 @@ public class VaccinationRepository
 
     public static List<VaccinationEntitiesModel> List()
     {
-        throw new NotImplementedException();
+        List<VaccinationEntitiesModel> list;
+        
+        using (var context = new AppDbContext()) 
+        { 
+            list = context
+                .Vaccinations
+                .ToList();
+        } 
+        
+        return list;
     }
 
     public static VaccinationEntitiesModel Read(int id)
     {
-        throw new NotImplementedException();
+        using (var context = new AppDbContext()) 
+        { 
+            return context
+                .Vaccinations
+                .Find(id);
+        } 
     }
 
-    public static void Update(int id, JsonContent newModel)
+    public static VaccinationEntitiesModel Update(VaccinationEntitiesModel newModel)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id);
-            if (vaccination != null)
+            var entities = context.Vaccinations.Find(newModel.Id);
+            if (entities != null)
             {
-                var updatedVaccination =
-                    JsonSerializer.Deserialize<AnimalEntitiesModel>(newModel.ToString());
-                context.Entry(vaccination).CurrentValues.SetValues(updatedVaccination);
-                context.SaveChangesAsync();
+                context.Entry(entities).CurrentValues.SetValues(newModel);
+                context.SaveChanges();
             }
+            else
+            {
+                return new VaccinationEntitiesModel();
+            }
+            
+            return context
+                .Vaccinations
+                .Find(newModel.Id);
         }
     }
 
-    public static void Delete(int id)
+    public static int Delete(int id)
     {
         using (var context = new AppDbContext())
         {
-            var vaccination = context.Vaccinations.FindAsync(id).Result;
-            if (vaccination != null)
+            var animal = context.Vaccinations.Find(id);
+            if (animal != null)
             {
-                context.Vaccinations.Remove(vaccination);
-                context.SaveChangesAsync();
+                context.Vaccinations.Remove(animal);
+                context.SaveChanges();
+                return 1;
             }
+
+            return 0;
         }
     }
 }

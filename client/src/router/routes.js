@@ -185,6 +185,60 @@ export const routes  = [
         },
     },
     {
+        path: '/vaccination-registry',
+        name: 'vaccinationRegistry',
+        component: () => import('./../pages/VaccinationRegistryPage.vue'),
+        meta: {
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/vaccination-registry/create',
+        name: 'vaccinationCreate',
+        component: () => import('./../pages/VaccinationPage.vue'),
+        meta: {
+            mode: "create",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/vaccination-registry/:id/read',
+        name: 'vaccinationRead',
+        component: () => import('./../pages/VaccinationPage.vue'),
+        meta: {
+            mode: "read",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/vaccination-registry/:id/update',
+        name: 'vaccinationUpdate',
+        component: () => import('./../pages/VaccinationPage.vue'),
+        meta: {
+            mode: "update",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/vaccination-registry/:id/delete',
+        name: 'vaccinationDelete',
+        component: () => import('./../pages/VaccinationPage.vue'),
+        meta: {
+            mode: "delete",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
         path: '/report',
         name: 'report',
         component: () => import('./../pages/ReportPage.vue'),

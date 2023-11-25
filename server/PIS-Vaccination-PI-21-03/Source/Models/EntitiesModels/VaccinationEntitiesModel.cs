@@ -26,23 +26,23 @@ public class VaccinationEntitiesModel
     public int FkContract { get; set; }
     [ForeignKey("FkContract")]
     public ContractEntitiesModel Contract { get; set; }
+    [Column("fk_animal")]
+    public int FkAnimal { get; set; }
+    [ForeignKey("FkAnimal")]
+    public ContractEntitiesModel Animal { get; set; }
     
-    public static implicit operator VaccinationEntitiesModel(VaccinationViewModel viewNodel)
+    public static implicit operator VaccinationEntitiesModel(VaccinationViewModel viewModel)
     {
-        VaccinationEntitiesModel _entetyModel = new VaccinationEntitiesModel();
-        _entetyModel.Id = viewNodel.Id;
-        _entetyModel.Type = viewNodel.Type;
-        _entetyModel.Date = viewNodel.Date;
-        _entetyModel.PositionOfDoc = viewNodel.PositionOfDoc;
-        _entetyModel.NumOfSeries = viewNodel.NumOfSeries;
-        _entetyModel.DateOfExpire = viewNodel.DateOfExpire;
-        _entetyModel.FkOrg = viewNodel.FkOrg;
-        _entetyModel.FkContract = viewNodel.FkContract;
-        using (var db = new AppDbContext())
-        {
-            _entetyModel.Organization = db.Organizations.Find(viewNodel.FkOrg);
-            _entetyModel.Contract = db.Contracts.Find(viewNodel.FkContract);
-        }
+        var _entetyModel = new VaccinationEntitiesModel();
+        _entetyModel.Id = viewModel.Id;
+        _entetyModel.Type = viewModel.Type;
+        _entetyModel.Date = DateTime.SpecifyKind(viewModel.Date, DateTimeKind.Utc);
+        _entetyModel.NumOfSeries = viewModel.NumOfSeries;;
+        _entetyModel.DateOfExpire = DateTime.SpecifyKind(viewModel.DateOfExpire, DateTimeKind.Utc);
+        _entetyModel.PositionOfDoc = viewModel.PositionOfDoc;
+        _entetyModel.FkOrg = viewModel.FkOrg;
+        _entetyModel.FkContract = viewModel.FkContract;
+        _entetyModel.FkAnimal = viewModel.FkAnimal;
         return _entetyModel;
     }
 }

@@ -18,6 +18,14 @@ import {PermissionService} from "../services/PermissionService.js";
           >
             Создать отчет
           </router-link>
+          <!-- // TODO: парава на вакцинацию -->
+          <router-link
+              v-if="PermissionService.can('read-animal')"
+              to="/vaccination-registry"
+              class="pi-nav-items__item"
+          >
+            Реестр вакцинаций
+          </router-link>
           <router-link
               v-if="PermissionService.can('read-animal')"
               to="/animal-registry" 
