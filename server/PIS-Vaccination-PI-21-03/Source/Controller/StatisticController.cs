@@ -12,7 +12,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Controller;
 public class StatisticController: ControllerBase
 {
     [HttpPost]
-    [ActionName("make-report")]
+    [ActionName("make")]
     public async Task<IActionResult> MakeReport([FromBody] ReportRequestDTO request)
     {
         try 

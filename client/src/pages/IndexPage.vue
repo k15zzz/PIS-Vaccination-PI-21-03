@@ -1,9 +1,5 @@
 <script setup>
 import Block from "../components/ui/Block.vue";
-import AppButton from "../components/ui/AppButton.vue";
-import CheckBox from "../components/ui/CheckBox.vue";
-import {ref} from "vue";
-import BuildStatistic from "../components/BuildStatistic.vue";
 import {PermissionService} from "../services/PermissionService.js";
 </script>
 
@@ -12,9 +8,16 @@ import {PermissionService} from "../services/PermissionService.js";
     <div class="page-index">
       <div class="pi__navigation">
         <h3 class="pi-navigation__title">
-          Список реестров
+          Вакцинирование животных
         </h3>
         <div class="pi-navigation__items">
+          <router-link
+              v-if="PermissionService.can('create-statistic')"
+              to="/report"
+              class="pi-nav-items__item"
+          >
+            Создать отчет
+          </router-link>
           <router-link
               v-if="PermissionService.can('read-animal')"
               to="/animal-registry" 
@@ -38,7 +41,6 @@ import {PermissionService} from "../services/PermissionService.js";
           </router-link>
         </div>
       </div>
-      <build-statistic v-if="PermissionService.can('create-statistic')"/>
     </div>
   </block>
 </template>
@@ -46,7 +48,7 @@ import {PermissionService} from "../services/PermissionService.js";
 <style scoped lang="less">
 .page-index {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   gap: 50px;
   .pi__navigation {
     .pi-navigation__title {}

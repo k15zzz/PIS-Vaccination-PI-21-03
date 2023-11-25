@@ -8,7 +8,10 @@ public class StatisticService
 {
     public static List<ReportViewModel> MakeReport(DateTime dateStart, DateTime dateFinish, List<int> town)
     {
-        var data = StatisticRepository.GetDateStatistic(dateStart, dateFinish, town);
+        var data = StatisticRepository.GetDateStatistic(
+            DateTime.SpecifyKind(dateStart, DateTimeKind.Utc), 
+            DateTime.SpecifyKind(dateFinish, DateTimeKind.Utc),
+            town);
 
         var report = CreateReport(data);
 

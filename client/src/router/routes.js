@@ -185,6 +185,16 @@ export const routes  = [
         },
     },
     {
+        path: '/report',
+        name: 'report',
+        component: () => import('./../pages/ReportPage.vue'),
+        meta: {
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: "/"
     }
