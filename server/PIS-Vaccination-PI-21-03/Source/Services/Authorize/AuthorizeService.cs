@@ -44,12 +44,37 @@ public class AuthorizeService
             issuer: AuthorizeOptions.ISSUER,
             audience: AuthorizeOptions.AUDIENCE,
             claims: claims,
-            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(2)),
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(120)),
             signingCredentials: new SigningCredentials(
                 AuthorizeOptions.GetSymmetricSecurityKey(),
                 SecurityAlgorithms.HmacSha256)
         );
         
         return new JwtSecurityTokenHandler().WriteToken(jwt);
+    }
+
+    public static bool ValidateToken(string token)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var validationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = AuthorizeOptions.ISSUER,
+            ValidateAudience = true,
+            ValidAudience = AuthorizeOptions.AUDIENCE,
+            ValidateLifetime = true,
+            IssuerSigningKey = AuthorizeOptions.GetSymmetricSecurityKey(),
+            ValidateIssuerSigningKey = true,
+        };
+
+        try
+        {
+            tokenHandler.ValidateToken(token, validationParameters, out _);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 }

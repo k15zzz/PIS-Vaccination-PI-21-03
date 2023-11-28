@@ -1,8 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using PIS_Vaccination_PI_21_03.Source.Models;
 using PIS_Vaccination_PI_21_03.Source.Repository;
 using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
+using PIS_Vaccination_PI_21_03.Source.Services.Permission;
 
 namespace PIS_Vaccination_PI_21_03.Source.Controller;
 
@@ -25,8 +24,8 @@ public class AnimalController : ControllerBase
     }
 
     [HttpGet]
-    // [ScopedPermission("read-animal")]
     [ActionName("list")]
+    // [CanPermission("read-animal")]
     public async Task<IActionResult> List()
     { 
         var list = AnimalRepository.List();

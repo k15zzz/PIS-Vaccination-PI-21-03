@@ -22,4 +22,9 @@ public class PermissionService
 
         return scoped;
     } 
+    
+    public static bool CanPermission(int userId, string permission)
+    {
+        return PermissionScopedList(userId).Contains(permission);
+    }
 }
