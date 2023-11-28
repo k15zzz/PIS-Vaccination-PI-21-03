@@ -25,7 +25,8 @@ public class AnimalController : ControllerBase
 
     [HttpGet]
     [ActionName("list")]
-    // [CanPermission("read-animal")]
+    // [Authorization] - если хочешь просто проверку авторизации по JWT токену
+    // [CanPermission("read-animal")] - если хочешь проверку права по JWT токену
     public async Task<IActionResult> List()
     { 
         var list = AnimalRepository.List();
