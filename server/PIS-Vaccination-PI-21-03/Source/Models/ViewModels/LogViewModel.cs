@@ -9,29 +9,30 @@ public class LogViewModel
     public string ObjId { get; set; }
     public string ObjDescr { get; set; }
     public int FkUser { get; set; }
-    public string name;
-    public string surname;
-    public string patronymic;
-    public string phone;
-    public string email;
-    public string workPhone;
-    public string workEmail;
-    public string login;
-    public int FkOrg;
-    public int FkRole;
-    public string orgName;
-    
-    
-    
+    public string name { get; set; }
+    public string surname { get; set; }
+    public string patronymic { get; set; }
+    public string phone { get; set; }
+    public string email { get; set; }
+    public string workPhone { get; set; }
+    public string workEmail { get; set; }
+    public string login { get; set; }
+    public string OrgName { get; set; }
+    public string RoleName { get; set; }
+
+
+
+
     public static implicit operator LogViewModel(LogEntitiesModel entitiesModel)
     {
-        var m = new LogViewModel();
-        m.Id = entitiesModel.Id;
-        m.LogDate = entitiesModel.LogDate;
-        m.ObjId = entitiesModel.ObjId;
-        m.ObjDescr = entitiesModel.ObjDescr;
-       // int userOrg = 0;
-      //  m.FkUserId = entitiesModel.FkUserId;
+        var m = new LogViewModel
+        {
+            Id = entitiesModel.Id,
+            LogDate = entitiesModel.LogDate,
+            ObjId = entitiesModel.ObjId,
+            ObjDescr = entitiesModel.ObjDescr
+        };
+
         using (var db = new AppDbContext())
         {
             m.name = db.Users.Find(entitiesModel.FkUser).Name;
@@ -39,12 +40,12 @@ public class LogViewModel
             m.patronymic = db.Users.Find(entitiesModel.FkUser).Patronymic;
             m.phone = db.Users.Find(entitiesModel.FkUser).Phone;
             m.email = db.Users.Find(entitiesModel.FkUser).Email;
-            m.workPhone = db.Users.Find(entitiesModel.FkUser).WorkPhone;
             m.workEmail = db.Users.Find(entitiesModel.FkUser).WorkEmail;
+            m.workPhone = db.Users.Find(entitiesModel.FkUser).WorkEmail;
             m.login = db.Users.Find(entitiesModel.FkUser).Login;
-         //   userOrg = db.Users.Find(entitiesModel.FkUserId).FkOrg;
-            m.FkOrg = db.Users.Find(entitiesModel.FkUserId).FullName;
-            
+
+            m.RoleName = db.Roles.Find(db.Users.Find(entitiesModel.FkUser).FkRole).Name;
+            m.OrgName = db.Organizations.Find(db.Users.Find(entitiesModel.FkUser).FkOrg).FullName;
         }
         return m;
     }
