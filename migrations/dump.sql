@@ -239,11 +239,11 @@ VALUES
     ('ИП Конец бездомным', '443342', '43813', 'ул. Прокопия. д. 3', 'Заявитель', b'0', 1);
 
 INSERT INTO users
-(login, password, fk_org, fk_role)
+(login, password, fk_org, fk_role, surname, name, patronymic, phone, email, work_email, work_phone)
 VALUES
-    ('boss', 'p4ssw0rd', 1, 6),
-    ('master', 'aster', 1, 14),
-    ('towntest', '1', 1, 9);
+    ('boss', 'p4ssw0rd', 1, 6, 'Smith', 'Smith', 'Smith', '+932309823', 'rvi@mi.ru', 'ew@e.re', '+330203-32'),
+    ('master', 'aster', 1, 14, 'James', 'James', 'James', '+93293203',  'cece@cdc.e2', 'cdm@icm.ru', '+32903902'),
+    ('towntest', '1', 1, 9, 'Сатана', 'Сатанин', 'укоушк', '+32903238', 'wewef@cei.45', 'fef@cdcd.434', '+02-3232390');
 
 INSERT INTO animal
 (reg_num, category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)
