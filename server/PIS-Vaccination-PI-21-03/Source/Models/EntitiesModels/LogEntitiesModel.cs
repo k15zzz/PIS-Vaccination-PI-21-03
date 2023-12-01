@@ -18,7 +18,7 @@ public class LogEntitiesModel
         _entetyModel.LogDate = DateTime.SpecifyKind(viewModel.LogDate, DateTimeKind.Utc);
         _entetyModel.ObjId = viewModel.ObjId;
         _entetyModel.ObjDescr = viewModel.ObjDescr;
-        _entetyModel.FkUserId = viewModel.FkUserId;
+        _entetyModel.FkUser = viewModel.FkUser;
         return _entetyModel;
     }
 }
