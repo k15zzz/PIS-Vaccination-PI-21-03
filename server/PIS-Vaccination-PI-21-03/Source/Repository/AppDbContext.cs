@@ -5,8 +5,7 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AppDbContext : DbContext
 {
-    //TODO: тоблица для логов
-    //public DbSet<LogEntitiesModel> Logs { get; set; } = null!;
+    public DbSet<LogEntitiesModel> Loggings { get; set; } = null!;
     public DbSet<AnimalCategoryEntitiesModel> AnimalCategory { get; set; } = null!;
     public DbSet<AnimalEntitiesModel> Animals { get; set; } = null!;
     public DbSet<ContractEntitiesModel> Contracts { get; set; } = null!;
