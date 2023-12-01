@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
 
-namespace PIS_Vaccination_PI_21_03.Source.Models;
+namespace PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 
 [Table("logging")]
 public class LogEntitiesModel

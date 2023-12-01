@@ -1,5 +1,6 @@
 using PIS_Vaccination_PI_21_03.Source.Models;
 using Microsoft.EntityFrameworkCore;
+using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
