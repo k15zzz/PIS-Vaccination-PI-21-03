@@ -20,3 +20,4 @@ public class UserEntitiesModels
     [ForeignKey("FkRole")]
     public RoleEntitiesModel Role { get; set; }
 }
+//todo: подстроить таблу под новую бд
