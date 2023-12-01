@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Repository;
 using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
+using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 using PIS_Vaccination_PI_21_03.Source.Services.Permission;
 
 namespace PIS_Vaccination_PI_21_03.Source.Controller;
