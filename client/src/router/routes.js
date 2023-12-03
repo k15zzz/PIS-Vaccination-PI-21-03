@@ -273,8 +273,32 @@ export const routes  = [
     },
     {
         path: '/logs-registry',
-        name: 'logsRegistry',
+        name: 'logRegistry',
         component: () => import('./../pages/LogRegistryPage.vue'),
+        meta: {
+            mode: "read",
+            middleware: [
+                auth,
+                log
+            ]
+        },
+    },
+    {
+        path: '/logs-registry/:id/delete',
+        name: 'logDelete',
+        component: () => import('./../pages/LogPage.vue'),
+        meta: {
+            mode: "delete",
+            middleware: [
+                auth,
+                log
+            ]
+        },
+    },
+    {
+        path: '/logs-registry/:id/read',
+        name: 'logRead',
+        component: () => import('./../pages/LogPage.vue'),
         meta: {
             mode: "read",
             middleware: [

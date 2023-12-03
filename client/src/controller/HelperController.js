@@ -24,7 +24,9 @@ export class HelperController {
             case 'delete':
                 this.read(id);
                 this.alertDelete(id);
-                break;    
+                break;
+            case 'export':
+                break;
         }
         this.type = type;
     }
