@@ -37,13 +37,11 @@ export class LogModel extends ModelHelper {
 
     static _permissions = {
         read: "read-log",
-        delete: "delete-log",
-        export: "export-log",
+        
     }
 
     static _routerAction = {
         read: "logRead",
-        delete: "logDelete",
-        export: "logExport"
+       
     }
 }

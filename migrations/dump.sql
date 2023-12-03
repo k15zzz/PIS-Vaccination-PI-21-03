@@ -181,7 +181,9 @@ VALUES
     (11, 'update-organization'),
     (12, 'update-contract'),
     (13, 'have-town'),
-    (14, 'create-statistic');
+    (14, 'create-statistic'),
+    (15, 'read-log');
+    
 
 INSERT INTO permission_role
 (fk_role, fk_permission)
@@ -252,7 +254,8 @@ VALUES
     (14,  10),
     (14,  11),
     (14,  12),
-    (14,  14);
+    (14,  14),
+    (14, 15);
 
 INSERT INTO town (name) VALUES ('Тюмень'), ('Новосибирск');
 

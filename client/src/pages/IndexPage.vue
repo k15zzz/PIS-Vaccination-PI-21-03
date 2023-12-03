@@ -49,10 +49,12 @@ import {PermissionService} from "../services/PermissionService.js";
           </router-link>
           <router-link
               v-if="PermissionService.can('read-log')"
+              v-if="PermissionService.can()"
               to="/logs-registry"
               class="pi-nav-items__item"
           >
             Реестр логов
+           
           </router-link>
         </div>
       </div>
