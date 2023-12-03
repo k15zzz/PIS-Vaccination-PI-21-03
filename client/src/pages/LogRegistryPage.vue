@@ -1,6 +1,6 @@
 ﻿<script setup>
 import Block from "../components/ui/Block.vue";
-import ModelRegistry from "../components/ModelRegistry.vue";
+import ModelRegistry from "../components/ModelLogRegistry.vue";
 import {onBeforeMount, reactive} from "vue";
 import {LogRepository} from "../repositorys/LogRepository.js";
 import {LogModel} from "../models/LogModel.js";
