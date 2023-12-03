@@ -272,6 +272,17 @@ export const routes  = [
         },
     },
     {
+        path: '/logs-registry',
+        name: 'logsRegistry',
+        component: () => import('./../pages/LogRegistryPage.vue'),
+        meta: {
+            middleware: [
+                auth,
+                log
+            ]
+        },
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: "/"
     }

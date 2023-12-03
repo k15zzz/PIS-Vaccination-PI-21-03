@@ -53,7 +53,7 @@ import {PermissionService} from "../services/PermissionService.js";
               class="pi-nav-items__item"
           >
             Реестр логов
-          </router-link>>
+          </router-link>
         </div>
       </div>
     </div>
