@@ -8,7 +8,7 @@ defineProps({
   models: Array,
   model: Function,
   title: String,
-  routerExport: String,
+  routerCreate: String,
 });
 </script>
 
