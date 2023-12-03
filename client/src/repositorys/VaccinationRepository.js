@@ -5,12 +5,9 @@ import {VaccinationModel} from "../models/VaccinationModel.js";
 
 export class VaccinationRepository {
     static async list() {
-        const response = await fetch("/api/v1/vaccination/list");
-        
+        const rawList = await RequestService.Get("/api/v1/vaccination/list");
         let list = [];
         
-        let rawList = await response.json()
-
         rawList.forEach((row) => {
             let model = SerializeService.serialize(row, new VaccinationModel());
             list.push(model)

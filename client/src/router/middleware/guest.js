@@ -1,7 +1,7 @@
-export default function guest ({ next, jwt }){
+export default function guest ({ next, jwt, isAuth}){
     console.log('guest', jwt);
     
-    if(jwt !== null){
+    if(isAuth){
         return next({
             name: 'index'
         })

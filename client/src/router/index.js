@@ -2,7 +2,9 @@ import {createRouter, createWebHistory} from 'vue-router'
 import {routes} from "./routes";
 import middlewarePipeline from './middlewarePipeline';
 import {JwtResponseModel} from "../models/JwtResponseModel.js";
+import {PermissionService} from "../services/PermissionService.js";
 // localStorage.clear();
+let isAuth = await PermissionService.isAuth();
 let jwt = JwtResponseModel.getJwtResponse();
 
 const router = createRouter({
@@ -19,7 +21,8 @@ router.beforeEach((to, from, next) => {
     to,
     from,
     next,
-    jwt
+    jwt,
+    isAuth
   }
   return middleware[0]({
     ...context,

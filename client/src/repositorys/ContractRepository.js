@@ -5,12 +5,9 @@ import {AnimalModel} from "../models/AnimalModel.js";
 
 export class ContractRepository {
     static async list() {
-        const response = await fetch("/api/v1/contract/list");
-        
+        const rawList = await RequestService.Get("/api/v1/contract/list");
         let list = [];
         
-        let rawList = await response.json()
-
         rawList.forEach((row) => {
             let model = SerializeService.serialize(row, new ContractModel());
             list.push(model)

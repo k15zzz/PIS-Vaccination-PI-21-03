@@ -4,12 +4,9 @@ import {RequestService} from "../services/RequestService.js";
 
 export class AnimalRepository {
     static async list() {
-        const response = await fetch("/api/v1/animal/list");
-        
+        const rawList = await RequestService.Get("/api/v1/animal/list");
         let list = [];
         
-        let rawList = await response.json()
-
         rawList.forEach((row) => {
             let model = SerializeService.serialize(row, new AnimalModel());
             list.push(model)

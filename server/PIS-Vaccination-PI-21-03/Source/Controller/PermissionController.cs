@@ -9,6 +9,7 @@ public class PermissionController: ControllerBase
 {
     [HttpGet]
     [ActionName("scoped")]
+    [Authorization]
     public async Task<IActionResult> GetPermissionList(int userId)
     {
         return Ok(PermissionService.PermissionScopedList(userId));
