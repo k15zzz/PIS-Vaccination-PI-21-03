@@ -36,6 +36,15 @@ import {PermissionService} from "../services/PermissionService.js";
       </router-link>
     </div>
     <div>
+      <router-link
+          v-if="PermissionService.can('read-log')"
+          to="/logs-registry"
+          class="pi-nav-items__item"
+      >
+        Реестр логов
+      </router-link>
+    </div>
+    <div>
       <a @click="AuthorizeController.out()" href="#">Выйти</a>
     </div>
   </header>

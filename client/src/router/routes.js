@@ -276,6 +276,7 @@ export const routes  = [
         name: 'logsRegistry',
         component: () => import('./../pages/LogRegistryPage.vue'),
         meta: {
+            mode: "read",
             middleware: [
                 auth,
                 log
