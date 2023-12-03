@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Text;
+using Microsoft.AspNetCore.Mvc;
 using PIS_Vaccination_PI_21_03.Source.Repository;
 using PIS_Vaccination_PI_21_03.Source.Models.ViewModels;
 using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
@@ -34,4 +35,10 @@ public class LogReaderController : ControllerBase
     [ActionName("list")]
     public async Task<IActionResult> List() =>
         Ok(LogRepository.List().Select(x => (LogViewModel)x).ToList());
+
+    public FileResult ExportToExcel(string htmlTable)
+    {
+        return File(Encoding.ASCII.GetBytes(htmlTable), "application/vnd.ms-excel","htmltable.xls");
+    }
 }
+//todo поправить
