@@ -1,6 +1,5 @@
 import guest from './middleware/guest';
 import auth from './middleware/auth';
-import log from "./middleware/logs.js";
 
 export const routes  = [
     {
@@ -9,8 +8,7 @@ export const routes  = [
         component: () => import('./../pages/IndexPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -30,8 +28,7 @@ export const routes  = [
         component: () => import('./../pages/OrganizationRegistryPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -42,8 +39,7 @@ export const routes  = [
         meta: {
             mode: "create",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -54,8 +50,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -66,8 +61,7 @@ export const routes  = [
         meta: {
             mode: "update",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -78,8 +72,7 @@ export const routes  = [
         meta: {
             mode: "delete",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -89,8 +82,7 @@ export const routes  = [
         component: () => import('./../pages/AnimalRegistryPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -101,8 +93,7 @@ export const routes  = [
         meta: {
             mode: "create",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -113,8 +104,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -125,8 +115,7 @@ export const routes  = [
         meta: {
             mode: "update",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -137,8 +126,7 @@ export const routes  = [
         meta: {
             mode: "delete",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -148,8 +136,7 @@ export const routes  = [
         component: () => import('./../pages/ContactRegistryPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -160,8 +147,7 @@ export const routes  = [
         meta: {
             mode: "create",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -172,8 +158,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -184,8 +169,7 @@ export const routes  = [
         meta: {
             mode: "update",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -196,8 +180,7 @@ export const routes  = [
         meta: {
             mode: "delete",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -207,8 +190,7 @@ export const routes  = [
         component: () => import('./../pages/VaccinationRegistryPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -219,8 +201,7 @@ export const routes  = [
         meta: {
             mode: "create",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -231,8 +212,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -243,8 +223,7 @@ export const routes  = [
         meta: {
             mode: "update",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -255,8 +234,7 @@ export const routes  = [
         meta: {
             mode: "delete",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -266,8 +244,7 @@ export const routes  = [
         component: () => import('./../pages/ReportPage.vue'),
         meta: {
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -278,8 +255,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -290,8 +266,7 @@ export const routes  = [
         meta: {
             mode: "delete",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },
@@ -302,8 +277,7 @@ export const routes  = [
         meta: {
             mode: "read",
             middleware: [
-                auth,
-                log
+                auth
             ]
         },
     },

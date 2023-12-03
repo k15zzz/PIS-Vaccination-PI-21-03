@@ -2,11 +2,17 @@ import {SerializeService} from "../services/SerializeService.js";
 import {AnimalModel} from "../models/AnimalModel.js";
 import {RequestService} from "../services/RequestService.js";
 import {OrganizationModel} from "../models/OrganizationModel.js";
+import {JwtResponseModel} from "../models/JwtResponseModel.js";
 
 export class OrganizationRepository {
     static async list() {
-        const response = await fetch("/api/v1/organization/list");
-        
+        const response = await fetch("/api/v1/organization/list", {
+            method: 'GET',
+            headers:{
+                'Authorize-token': JwtResponseModel.getJwtResponse().accessToken.toString()
+            }
+        });
+
         let list = [];
         
         let rawList = await response.json()
@@ -24,8 +30,15 @@ export class OrganizationRepository {
     }
 
     static async get(id) {
-        const row = await RequestService.Get('/api/v1/organization/read?id='+id);
-        return SerializeService.serialize(row, new OrganizationModel());
+        const row = await fetch('/api/v1/organization/read?id='+id, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorize-token': JwtResponseModel.getJwtResponse().accessToken.toString()
+            }
+        });
+        let answer =  await row.json();
+        return SerializeService.serialize(answer, new OrganizationModel());
     }
 
     static async update(
@@ -49,7 +62,7 @@ export class OrganizationRepository {
             fkTown
         }
         
-        return RequestService.Put('/api/v1/organization/update', model)
+        return RequestService.Put('/api/v1/organization/update', model);
     }
     
     static async create(
@@ -73,6 +86,6 @@ export class OrganizationRepository {
         
         console.log(JSON.stringify(model));
         
-        return RequestService.Post('/api/v1/organization/create', model)
+        return RequestService.Post('/api/v1/organization/create', model);
     }
 }
