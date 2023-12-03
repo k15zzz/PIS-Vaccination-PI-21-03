@@ -17,5 +17,6 @@ public class LogWriterMiddleware
         string actionName = context.Request.RouteValues["action"].ToString();
         
         
+        
     }
 }

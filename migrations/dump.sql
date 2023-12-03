@@ -114,12 +114,20 @@ CREATE TABLE permission_role (
 );
 
 CREATE TABLE logging (
-                         id serial primary key,
-                         date_time TIMESTAMP,
-                         object_instance_id text,
-                         object_description_after_action TEXT,
-                         fk_user int not null,
-                         foreign key (fk_user) references users(id)
+    id serial not null primary key,
+    surname VARCHAR(255),
+    name VARCHAR(255),
+    patronymic VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    organization VARCHAR(255),
+    position VARCHAR(255),
+    work_phone VARCHAR(20),
+    work_email VARCHAR(255),
+    login VARCHAR(255),
+    date_time TIMESTAMP,
+    object_instance_id INT,
+    object_description_after_action TEXT
 );
 
 INSERT INTO role
