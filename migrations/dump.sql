@@ -6,6 +6,9 @@ DROP TABLE IF EXISTS animal_category;
 DROP TABLE IF EXISTS towns_service;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organization;
+DROP TABLE IF EXISTS statistic_town;
+DROP TABLE IF EXISTS status_statistic;
+DROP TABLE IF EXISTS statistics;
 DROP TABLE IF EXISTS town;
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
@@ -111,6 +114,28 @@ CREATE TABLE permission_role (
     foreign key (fk_permission) references permission (id)
 );
 
+CREATE TABLE status_statistic (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE statistics (
+    id SERIAL PRIMARY KEY,
+    date_start TIMESTAMP NOT NULL,
+    date_finish TIMESTAMP NOT NULL,
+    fk_status INT NOT NULL DEFAULT 1,
+    update_status TIMESTAMP NOT NULL,
+    FOREIGN KEY (fk_status) REFERENCES status_statistic(id)
+);
+
+CREATE TABLE statistic_town (
+    id SERIAL PRIMARY KEY,
+    fk_town INT NOT NULL,
+    fk_statistic INT NOT NULL,
+    FOREIGN KEY (fk_town) REFERENCES town(id),
+    FOREIGN KEY (fk_statistic) REFERENCES statistics(id)
+);
+
 CREATE TABLE logging (
     surname VARCHAR(255),
     name VARCHAR(255),
@@ -127,6 +152,16 @@ CREATE TABLE logging (
     object_instance_id INT,
     object_description_after_action TEXT
 );
+
+INSERT INTO status_statistic 
+    (name) 
+VALUES
+    ('Черновик'),
+    ('Доработка'),
+    ('Согласование у исполнителя Муниципального Контракта'),
+    ('Согласовано у исполнителя Муниципального Контракта'),
+    ('Утверждено у исполнителя Муниципального Контракта'),
+    ('Согласовано в ОМСУ');
 
 INSERT INTO animal_category
     (id, name)
