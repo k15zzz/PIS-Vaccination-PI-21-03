@@ -14,6 +14,7 @@ DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
 DROP TABLE IF EXISTS role;
 DROP TABLE IF EXISTS logging;
+DROP TABLE IF EXISTS animal_status;
 
 CREATE TABLE role (
     id serial primary key,
@@ -52,6 +53,11 @@ CREATE TABLE animal_category (
     name varchar(155) not null 
 );
 
+CREATE  TABLE animal_status (
+    id serial primary key,
+    status varchar(100)
+);
+
 CREATE TABLE animal (
     id serial primary key,
     reg_num int8,
@@ -63,9 +69,12 @@ CREATE TABLE animal (
     special_marks varchar(200),
     fk_animal_category int not null,
     fk_town int not null,
+    fk_animal_status int not null DEFAULT 1,
     foreign key (fk_town) references town (id),
-    foreign key (fk_animal_category) references animal_category (id)
+    foreign key (fk_animal_category) references animal_category (id),
+    foreign key (fk_animal_status) references animal_status (id)
 );
+
 
 CREATE TABLE towns_service (
    id serial primary key,
@@ -170,6 +179,12 @@ INSERT INTO animal_category
 VALUES
     (1, 'Кошка'),
     (2, 'Собака');
+
+INSERT INTO animal_status (status)
+VALUES 
+    ('Не проводилась'),
+    ('Вакцинировано'),
+    ('Приближается срок вакцинирования');
 
 INSERT INTO role
     (id, name)
