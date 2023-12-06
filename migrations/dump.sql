@@ -139,6 +139,8 @@ CREATE TABLE statistics (
 
 CREATE TABLE statistic_town (
     id SERIAL PRIMARY KEY,
+    count INT NOT NULL,
+    cost FLOAT NOT NULL,
     fk_town INT NOT NULL,
     fk_statistic INT NOT NULL,
     FOREIGN KEY (fk_town) REFERENCES town(id),

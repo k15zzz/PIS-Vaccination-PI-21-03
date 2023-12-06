@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: ./docker/Nginx.Dockerfile
+    depends_on: 
+      - dotnet
+      - node
     ports:
       - 80:8080
     networks:
@@ -14,6 +17,8 @@ services:
     build:
       context: ./server
       dockerfile: ./../docker/CSharp.Dockerfile
+    depends_on:
+      - db
     networks:
       - backend
       - database
@@ -23,6 +28,8 @@ services:
     build:
       context: ./client
       dockerfile: ./../docker/NodeJS.Dockerfile
+    depends_on: 
+      - dotnet
     networks:
       - client
     volumes:
