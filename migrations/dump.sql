@@ -162,6 +162,71 @@ CREATE TABLE logging (
     object_description_after_action TEXT
 );
 
+CREATE OR REPLACE FUNCTION update_animal_status()
+    RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM vaccination
+        WHERE fk_animal = NEW.fk_animal
+    ) THEN
+        UPDATE animal
+        SET fk_animal_status = 1
+        WHERE id = NEW.fk_animal;
+    ELSE
+        IF NOT EXISTS (
+            SELECT 1
+            FROM vaccination
+            WHERE fk_animal = NEW.fk_animal
+              AND date_of_expire >= CURRENT_DATE
+        ) THEN
+            UPDATE animal
+            SET fk_animal_status = 1
+            WHERE id = NEW.fk_animal;
+        ELSE
+            IF EXISTS (
+                SELECT 1
+                FROM vaccination
+                WHERE fk_animal = NEW.fk_animal
+                  AND date_of_expire >= CURRENT_DATE
+                  AND date_of_expire <= CURRENT_DATE + INTERVAL '10 days'
+            ) THEN
+                UPDATE animal
+                SET fk_animal_status = 3
+                WHERE id = NEW.fk_animal;
+            ELSE
+                UPDATE animal
+                SET fk_animal_status = 2
+                WHERE id = NEW.fk_animal;
+            END IF;
+        END IF;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION delete_animal_status()
+    RETURNS TRIGGER AS $$
+BEGIN
+    UPDATE animal
+    SET fk_animal_status = 1
+    WHERE animal.id = OLD.fk_animal;
+
+    RETURN OLD;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE TRIGGER update_vaccination_fk_animal_status
+    AFTER INSERT OR UPDATE OF date_of_expire ON vaccination
+    FOR EACH ROW
+EXECUTE FUNCTION update_animal_status();
+
+CREATE OR REPLACE TRIGGER delete_vaccination_fk_animal_status
+    AFTER DELETE ON vaccination
+    FOR EACH ROW
+EXECUTE FUNCTION delete_animal_status();
+
 INSERT INTO status_statistic 
     (name) 
 VALUES
