@@ -5,42 +5,15 @@ import AppFooter from "./components/AppFooter.vue";
 import DefaultLayouts from "./layouts/DefaultLayouts.vue";
 import {PermissionService} from "./services/PermissionService.js";
 import AppInformer from "./components/AppInformer.vue";
-import JsonExcel from "vue-json-excel3";
-import {onBeforeMount, reactive} from "vue";
-import {AnimalRepository} from "./repositorys/AnimalRepository.js";
-
-let value = reactive({
-  isAuth: false
-});
-
-onBeforeMount(async () => {
-  value.isAuth = await PermissionService.isAuth();
-});
-<<<<<<< HEAD
-import JsonExcel from "vue-json-excel3";
-=======
-import {onBeforeMount, reactive} from "vue";
-import {AnimalRepository} from "./repositorys/AnimalRepository.js";
-
-let value = reactive({
-  isAuth: false
-});
-
-onBeforeMount(async () => {
-  value.isAuth = await PermissionService.isAuth();
-});
->>>>>>> origin/main
 </script>
 
 <template>
-  <app-header v-if="value.isAuth"/>
+  <app-header v-if="PermissionService.isAuth()"/>
   <app-informer/>
   <default-layouts>
     <RouterView></RouterView>
   </default-layouts>
-  <app-footer v-if="value.isAuth"/>
-  <app-header v-if="value.isAuth"/>
-  <app-footer v-if="value.isAuth"/>
+  <app-footer v-if="PermissionService.isAuth()"/>
 </template>
 
 <style>

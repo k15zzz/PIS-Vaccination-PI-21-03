@@ -1,7 +1,6 @@
 ﻿import {SerializeService} from "../services/SerializeService.js";
 import {LogModel} from "../models/LogModel.js";
 import {RequestService} from "../services/RequestService.js";
-import JsonExcel from "vue-json-excel3";
 
 export class LogRepository {
     static async list() {
@@ -29,9 +28,8 @@ export class LogRepository {
     }
     static async export(id)
     {
-        const row = await RequestService.Get('/api/v1/logreader/read?id='+id);
-        let rawList = await row.json()
-        JsonExcel.data(rawList);
+        return await RequestService.Post(id);
+        
     }
     //todo: экспорт
 }
