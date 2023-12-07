@@ -34,7 +34,7 @@ export class JwtResponseModel {
             accessToken: this.accessToken,
             login: this.login,
             status: this.status,
-            scoped: await PermissionRepository.scoped(this.userId),
+            scoped: await PermissionRepository.scoped(this.userId, this.accessToken),
             time: this.time
         });
     }

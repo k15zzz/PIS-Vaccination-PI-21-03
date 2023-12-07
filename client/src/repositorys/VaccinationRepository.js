@@ -2,21 +2,12 @@ import {SerializeService} from "../services/SerializeService.js";
 import {AnimalModel} from "../models/AnimalModel.js";
 import {RequestService} from "../services/RequestService.js";
 import {VaccinationModel} from "../models/VaccinationModel.js";
-import {JwtResponseModel} from "../models/JwtResponseModel.js";
 
 export class VaccinationRepository {
     static async list() {
-        const response = await fetch("/api/v1/vaccination/list", {
-            method: 'GET',
-            headers:{
-                'Authorize-token': JwtResponseModel.getJwtResponse().accessToken.toString()
-            }
-        });
-        
+        const rawList = await RequestService.Get("/api/v1/vaccination/list");
         let list = [];
         
-        let rawList = await response.json()
-
         rawList.forEach((row) => {
             let model = SerializeService.serialize(row, new VaccinationModel());
             list.push(model)
@@ -82,14 +73,7 @@ export class VaccinationRepository {
     }
     
     static async get(id) {
-        const row = await fetch('/api/v1/vaccination/read?id='+id, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorize-token': JwtResponseModel.getJwtResponse().accessToken.toString()
-            }
-        });
-        let answer =  await row.json();;
-        return SerializeService.serialize(answer, new VaccinationModel());
+        const row = await RequestService.Get('/api/v1/vaccination/read?id='+id);
+        return SerializeService.serialize(row, new VaccinationModel());
     }
 }

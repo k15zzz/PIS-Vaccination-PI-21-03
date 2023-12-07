@@ -8,7 +8,18 @@ export class PermissionService {
         return !!jwt.scoped.find(item => item === permission);
     }
 
-    static isAuth() {
-        return !!JwtResponseModel.getJwtResponse();
+    static async isAuth() {
+        const jwt = JwtResponseModel.getJwtResponse();
+        let status = !!jwt;
+        
+        if (status) {
+            let scoped = await PermissionRepository.scoped(jwt.userId);
+            if (scoped.status === 401) {
+                localStorage.clear();
+                status = false;
+            }
+        }
+        
+        return status;
     }
 }

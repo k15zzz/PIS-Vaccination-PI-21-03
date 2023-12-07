@@ -1,7 +1,7 @@
-export default function auth ({ next, jwt }){
+export default function auth ({ next, jwt, isAuth}){
     // console.log("auth", jwt);
     
-    if(jwt === null) {
+    if(!isAuth) {
         return next({
             name: 'auth'
         });

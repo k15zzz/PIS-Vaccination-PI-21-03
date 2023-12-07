@@ -1,10 +1,9 @@
-import {ScopedModel} from "../models/ScopedModel";
+import {RequestService} from "../services/RequestService.js";
 
 export class PermissionRepository {
-    static async scoped(userId) {
-        const response = await fetch("/api/v1/permission/scoped?" + new URLSearchParams({
+    static async scoped(userId, jwt) {
+        return await RequestService.Get("/api/v1/permission/scoped?" + new URLSearchParams({
             userId: userId.toString()
-        }));
-        return  await response.json();
+        }), jwt);
     }
 }
