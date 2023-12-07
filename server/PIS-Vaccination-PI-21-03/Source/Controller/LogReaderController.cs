@@ -15,17 +15,6 @@ public class LogReaderController : ControllerBase
     [ActionName("read")]
     public async Task<IActionResult> Read(int id) =>
         Ok((LogViewModel)LogRepository.Read(id));
-
-    [HttpPost]
-    [ActionName("create")]
-    public async Task<IActionResult> Create([FromBody] LogViewModel newLog) =>
-        Ok(LogRepository.Create(newLog));
-    
-    [HttpPut] 
-    [ActionName("update")]
-    public async Task<IActionResult> Update([FromBody] LogViewModel logModel) => 
-        Ok((LogViewModel)LogRepository.Update(logModel));
-
     [HttpDelete]
     [ActionName("delete")]
     public async Task<IActionResult> Delete(int id) =>

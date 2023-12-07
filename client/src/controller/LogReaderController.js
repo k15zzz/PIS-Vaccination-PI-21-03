@@ -6,7 +6,7 @@ import {HelperController} from "./HelperController.js";
 export class LogReaderController extends HelperController {
     backLink = '/logs-registry'
     value = reactive({
-        id:null,
+        id: null,
         surname: null,
         name: null,
         patronymic: null,
@@ -35,21 +35,29 @@ export class LogReaderController extends HelperController {
         this.value.phone = model.phone;
         this.value.email = model.email;
         this.value.organization = model.organization;
-        this.value.position =  model.position;
+        this.value.position = model.position;
         this.value.work_phone = model.work_phone;
-        this.value.work_email =  model.work_email;
+        this.value.work_email = model.work_email;
         this.value.login = model.login;
-        this.value.date_time =  model.date_time;
+        this.value.date_time = model.date_time;
         this.value.object_instance_id = model.object_instance_id;
         this.value.object_description_after_action = model.object_description_after_action;
     }
-    
+
     async delete(id) {
         let resp = await LogRepository.delete(id);
         if (resp) {
             this.router.push(this.backLink);
         }
     }
-    
+
+    async export(id)
+        {
+            let resp = await LogRepository.export(id);
+            
+            if (resp) {
+                this.router.push(this.backLink);
+            }
+        }
 }
 //todo экспорт

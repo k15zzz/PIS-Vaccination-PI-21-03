@@ -24,6 +24,7 @@ defineProps({
       <router-link
           :to="{ name: routerExport }"
           class="reg-head__exp"
+     
       >
         Экспорт в Excel
       </router-link>

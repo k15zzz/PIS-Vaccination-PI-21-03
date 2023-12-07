@@ -17,7 +17,7 @@ onBeforeMount(async () => {
     <model-registry
         :models="models"
         :model="LogModel"
-        router-create="exportCreate"
+        router-create="logExport"
         title="Реестр логов"
     />
   </block>

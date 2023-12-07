@@ -2,12 +2,7 @@
 import Block from "../components/ui/Block.vue";
 import {onBeforeMount} from "vue";
 import InputText from "../components/ui/InputText.vue";
-import Multiselect from "vue-multiselect";
-import Datepicker from "../components/ui/datepicker/Datepicker.vue";
-import AppButton from "../components/ui/AppButton.vue";
 import AppTextarea from "../components/ui/AppTextarea.vue";
-import CheckBox from "../components/ui/CheckBox.vue";
-import InputCheckbox from "../components/ui/InputCheckbox.vue";
 import {useRoute} from "vue-router";
 import {LogReaderController} from "../controller/LogReaderController.js";
 

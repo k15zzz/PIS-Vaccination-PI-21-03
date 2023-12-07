@@ -282,6 +282,16 @@ export const routes  = [
         },
     },
     {
+        path: '/logs-registry/:id/export',
+        name: 'logExport',
+        component: () => import('./../pages/LogPage.vue'),
+        meta: {
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: "/"
     }
