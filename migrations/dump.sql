@@ -7,10 +7,11 @@ DROP TABLE IF EXISTS animal_category;
 DROP TABLE IF EXISTS towns_service;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organization;
-DROP TABLE IF EXISTS town;
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
 DROP TABLE IF EXISTS role;
+DROp TABLE IF EXISTS statistic_town;
+DROP TABLE IF EXISTS town;
 
 
 CREATE TABLE role (
