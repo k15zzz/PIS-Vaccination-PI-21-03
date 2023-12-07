@@ -25,9 +25,12 @@ public class LogReaderController : ControllerBase
     public async Task<IActionResult> List() =>
         Ok(LogRepository.List().Select(x => (LogViewModel)x).ToList());
 
-    public FileResult ExportToExcel(string htmlTable)
+    [HttpPost]
+    [ActionName("export")]
+    public FileResult ExportToExcel(int id)
     {
-        return File(Encoding.ASCII.GetBytes(htmlTable), "application/vnd.ms-excel","htmltable.xls");
+        string log = LogRepository.Read(id).ToString();
+        return File(Encoding.ASCII.GetBytes(log), "application/vnd.ms-excel","export.xls");
     }
 }
 //todo поправить
