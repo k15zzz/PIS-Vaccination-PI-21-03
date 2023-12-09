@@ -6,77 +6,49 @@ namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AnimalRepository
 {
-    public static int Create(AnimalEntitiesModel model)
+    public static async Task<int> Create(AnimalEntitiesModel? model)
     {
-        using (var db = new AppDbContext())
+        await using var db = new AppDbContext();
+        await db.Animals.AddAsync(model);
+        await db.SaveChangesAsync();
+        return (await Task.Run(() => db.Animals.OrderBy(t => t.Id).Last().Id));
+    }
+
+    public static async Task<List<AnimalEntitiesModel?>> List()
+        => await Task.Run(()=>new AppDbContext().Animals.ToList());
+
+    public static async Task<AnimalEntitiesModel?> Read(int id) =>
+        await Task.Run(() => new AppDbContext().Animals.Find(id));
+    public static async Task<AnimalEntitiesModel?> Update(AnimalEntitiesModel newModel)
+    {
+        await using var context = new AppDbContext();
+
+        var animal = await context.Animals.FindAsync(newModel.Id);
+        if (animal != null)
         {
-            db.Animals.Add(model);
-            db.SaveChanges();
-            return db.Animals
-                .OrderBy(t => t.Id)
-                .Last()
-                .Id;
+            await Task.Run(() => context.Entry(animal).CurrentValues.SetValues(newModel));
+            await context.SaveChangesAsync();
         }
-    }
-
-    public static List<AnimalEntitiesModel> List()
-    { 
-        List<AnimalEntitiesModel> list;
-        
-        using (var context = new AppDbContext()) 
-        { 
-            list = context
-                .Animals
-                .ToList();
-        } 
-        
-        return list;
-    }
-
-    public static AnimalEntitiesModel Read(int id)
-    {
-        using (var context = new AppDbContext()) 
-        { 
-            return context
-                .Animals
-                .Find(id);
-        } 
-    }
-
-    public static AnimalEntitiesModel Update(AnimalEntitiesModel newModel) 
-    {
-        using (var context = new AppDbContext())
+        else
         {
-            var animal = context.Animals.Find(newModel.Id);
-            if (animal != null)
-            {
-                context.Entry(animal).CurrentValues.SetValues(newModel);
-                context.SaveChanges();
-            }
-            else
-            {
-                return new AnimalEntitiesModel();
-            }
+            return new AnimalEntitiesModel();
+        }
             
-            return context
-                .Animals
-                .Find(newModel.Id);
-        }
+        return (await context
+            .Animals
+            .FindAsync(newModel.Id));
     }
 
-    public static int Delete(int id)
+    public static async Task<int> Delete(int id)
     {
-        using (var context = new AppDbContext())
-        {
-            var animal = context.Animals.Find(id);
-            if (animal != null)
-            {
-                context.Animals.Remove(animal);
-                context.SaveChanges();
-                return 1;
-            }
-
+        await using var context = new AppDbContext();
+        
+        var animal = await context.Animals.FindAsync(id);
+        if (animal == null)
             return 0;
-        }
+        
+        context.Animals.Remove(animal);
+        await context.SaveChangesAsync();
+        return 1;
     }
 }
