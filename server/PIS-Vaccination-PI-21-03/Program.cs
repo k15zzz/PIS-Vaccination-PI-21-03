@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<LogWriterMiddleware>();
 
 var app = builder.Build();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.MapGet("/api", () => "Server start");
 
 app.UseMiddleware<LogWriterMiddleware>();
