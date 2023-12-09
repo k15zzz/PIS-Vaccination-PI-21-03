@@ -2,6 +2,7 @@ import {SerializeService} from "../services/SerializeService.js";
 import {AnimalModel} from "../models/AnimalModel.js";
 import {RequestService} from "../services/RequestService.js";
 import {OrganizationModel} from "../models/OrganizationModel.js";
+import {JwtResponseModel} from "../models/JwtResponseModel.js";
 
 export class OrganizationRepository {
     static async list() {

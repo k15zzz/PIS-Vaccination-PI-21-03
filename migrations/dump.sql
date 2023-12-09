@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS logging;
 DROP TABLE IF EXISTS organizations_contracts;
 DROP TABLE IF EXISTS vaccination;
 DROP TABLE IF EXISTS contract;
@@ -7,12 +8,15 @@ DROP TABLE IF EXISTS towns_service;
 DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS organization;
 DROP TABLE IF EXISTS statistic_town;
-DROP TABLE IF EXISTS status_statistic;
 DROP TABLE IF EXISTS statistics;
 DROP TABLE IF EXISTS town;
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
 DROP TABLE IF EXISTS role;
+DROp TABLE IF EXISTS statistic_town;
+DROP TABLE IF EXISTS town;
+DROP TABLE IF EXISTS status_statistic;
+
 DROP TABLE IF EXISTS logging;
 DROP TABLE IF EXISTS animal_status;
 
@@ -44,6 +48,13 @@ CREATE TABLE users (
     password varchar(100),
     fk_org int not null,
     fk_role int not null,
+    surname VARCHAR(255),
+    name VARCHAR(255),
+    patronymic VARCHAR(255),
+    phone VARCHAR(20),
+    email VARCHAR(255),
+    work_phone varchar(255),
+    work_email varchar(255),
     foreign key (fk_role) references role (id),
     foreign key (fk_org) references organization (id)
 );
@@ -148,6 +159,7 @@ CREATE TABLE statistic_town (
 );
 
 CREATE TABLE logging (
+    id serial primary key,
     surname VARCHAR(255),
     name VARCHAR(255),
     patronymic VARCHAR(255),
@@ -159,8 +171,8 @@ CREATE TABLE logging (
     work_phone VARCHAR(20),
     work_email VARCHAR(255),
     login VARCHAR(255),
-    date_time TIMESTAMP,
-    object_instance_id INT,
+    date_time timestamp,
+    object_instance_id varchar(255),
     object_description_after_action TEXT
 );
 
@@ -368,11 +380,11 @@ VALUES
     ('ИП Конец бездомным', '443342', '43813', 'ул. Прокопия. д. 3', 'Заявитель', false, 1);
 
 INSERT INTO users
-    (login, password, fk_org, fk_role)
+    (login, password, fk_org, fk_role, surname, name, patronymic, phone, email, work_email, work_phone)
 VALUES
-    ('boss', 'p4ssw0rd', 1, 6),
-    ('master', 'aster', 1, 14),
-    ('towntest', '1', 1, 9);
+    ('boss', 'p4ssw0rd', 1, 6, 'Smith', 'Smith', 'Smith', '+932309823', 'rvi@mi.ru', 'ew@e.re', '+330203-32'),
+    ('master', 'aster', 1, 14, 'James', 'James', 'James', '+93293203',  'cece@cdc.e2', 'cdm@icm.ru', '+32903902'),
+    ('towntest', '1', 1, 9, 'Сатана', 'Сатанин', 'укоушк', '+32903238', 'wewef@cei.45', 'fef@cdcd.434', '+02-3232390');
 
 INSERT INTO animal
     (reg_num, fk_animal_category, sex, year_birth, electronic_chip_number, name, photos, special_marks, fk_town)

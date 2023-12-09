@@ -47,6 +47,14 @@ import {PermissionService} from "../services/PermissionService.js";
           >
             Реестр организаций
           </router-link>
+          <router-link
+              v-if="PermissionService.can('read-log')"
+              to="/logs-registry"
+              class="pi-nav-items__item"
+          >
+            Реестр логов
+           
+          </router-link>
         </div>
       </div>
     </div>

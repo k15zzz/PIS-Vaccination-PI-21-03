@@ -249,6 +249,49 @@ export const routes  = [
         },
     },
     {
+        path: '/logs-registry',
+        name: 'logRegistry',
+        component: () => import('./../pages/LogRegistryPage.vue'),
+        meta: {
+            mode: "read",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/logs-registry/:id/delete',
+        name: 'logDelete',
+        component: () => import('./../pages/LogPage.vue'),
+        meta: {
+            mode: "delete",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/logs-registry/:id/read',
+        name: 'logRead',
+        component: () => import('./../pages/LogPage.vue'),
+        meta: {
+            mode: "read",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/logs-registry/:id/export',
+        name: 'logExport',
+        component: () => import('./../pages/LogPage.vue'),
+        meta: {
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
         path: '/:pathMatch(.*)*',
         redirect: "/"
     }

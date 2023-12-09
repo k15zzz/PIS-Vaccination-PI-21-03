@@ -1,12 +1,14 @@
 using PIS_Vaccination_PI_21_03.Source.Models;
 using Microsoft.EntityFrameworkCore;
+using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
 public class AppDbContext : DbContext
 {
+    public DbSet<LogEntitiesModel> Loggings { get; set; } = null!;
     public DbSet<AnimalCategoryEntitiesModel> AnimalCategory { get; set; } = null!;
-    public DbSet<AnimalEntitiesModel> Animals { get; set; } = null!;
+    public DbSet<AnimalEntitiesModel?> Animals { get; set; } = null!;
     public DbSet<ContractEntitiesModel> Contracts { get; set; } = null!;
     public DbSet<OrganizationEntitiesModel> Organizations { get; set; } = null!;
     public DbSet<RoleEntitiesModel> Roles { get; set; } = null!; 

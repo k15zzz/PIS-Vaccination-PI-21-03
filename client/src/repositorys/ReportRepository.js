@@ -1,4 +1,5 @@
 import {RequestService} from "../services/RequestService.js";
+import {JwtResponseModel} from "../models/JwtResponseModel.js";
 
 export class ReportRepository {
     static async make(

@@ -6,12 +6,14 @@ export class AnimalRepository {
     static async list() {
         const rawList = await RequestService.Get("/api/v1/animal/list");
         let list = [];
-        
-        rawList.forEach((row) => {
+
+
+        Array.prototype.forEach.call(rawList, row =>
+        {
             let model = SerializeService.serialize(row, new AnimalModel());
             list.push(model)
         })
-        
+
         return list;
     }
     
