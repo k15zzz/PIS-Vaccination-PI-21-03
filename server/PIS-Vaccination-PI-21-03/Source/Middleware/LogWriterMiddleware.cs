@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Text;
+using NUnit.Framework;
 using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 using PIS_Vaccination_PI_21_03.Source.Repository;
 
@@ -28,6 +29,29 @@ public class LogWriterMiddleware : IMiddleware
         try
         {
             (objectDescription,  documentId) = new SubLogger(context).SetDescription().Result;
+            
+            //отсекаем определенные листы
+            var restrictedLists = new []
+            {
+                "logreader"
+            };
+            foreach (var x in restrictedLists)
+                if (documentId.Contains(x))
+                {
+                    await next(context);
+                    return;
+                }
+
+            var restrictedActions = new[]
+            {
+                "list"
+            };
+            foreach (var x in restrictedActions)
+                if (objectDescription.Contains(x))
+                {
+                    await next(context);
+                    return;
+                }
         }
         catch (Exception e)
         {
@@ -90,6 +114,7 @@ public class SubLogger
             .Split('/');
         
         Action = routes[4];
+        
         _ojectId = routes[3];
 
         Seters = new Dictionary<string, Func<string, Task<Tuple<string, string>>>>()
@@ -101,7 +126,7 @@ public class SubLogger
             {"delete", DeleteReadAction}
         };
     }
-
+    
     public async Task<Tuple<string, string>> SetDescription()
     {
         try

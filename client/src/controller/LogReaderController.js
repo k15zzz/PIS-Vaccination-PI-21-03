@@ -36,12 +36,12 @@ export class LogReaderController extends HelperController {
         this.value.email = model.email;
         this.value.organization = model.organization;
         this.value.position = model.position;
-        this.value.work_phone = model.work_phone;
-        this.value.work_email = model.work_email;
+        this.value.work_phone = model.workPhone;
+        this.value.work_email = model.workEmail;
         this.value.login = model.login;
-        this.value.date_time = model.date_time;
-        this.value.object_instance_id = model.object_instance_id;
-        this.value.object_description_after_action = model.object_description_after_action;
+        this.value.date_time = model.logDate;
+        this.value.object_instance_id = model.objId;
+        this.value.object_description_after_action = model.objDescr;
     }
 
     async delete(id) {

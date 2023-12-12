@@ -4,11 +4,9 @@ import {RequestService} from "../services/RequestService.js";
 
 export class LogRepository {
     static async list() {
-        const response = await fetch("/api/v1/logreader/list");
+        const rawList = await RequestService.Get("/api/v1/logreader/list");
 
         let list = [];
-
-        let rawList = await response.json()
 
         rawList.forEach((row) => {
             let model = SerializeService.serialize(row, new LogModel());
@@ -28,8 +26,16 @@ export class LogRepository {
     }
     static async export(id)
     {
-        return await RequestService.Post(id);
-        
+        return  await fetch('/api/v1/logreader/export',{
+            method: 'POST',
+            headers:{
+                'Authorization': jwtModel.accessToken,
+                'Content-Type': 'application/vnd.ms-excel'
+            },
+            body: {
+                id
+            }
+        })
     }
     //todo: экспорт
 }

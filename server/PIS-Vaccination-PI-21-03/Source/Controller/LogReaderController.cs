@@ -27,7 +27,7 @@ public class LogReaderController : ControllerBase
 
     [HttpPost]
     [ActionName("export")]
-    public FileResult ExportToExcel(int id)
+    public FileResult ExportToExcel([FromBody]int id)
     {
         string log = LogRepository.Read(id).ToString();
         return File(Encoding.ASCII.GetBytes(log), "application/vnd.ms-excel","export.xls");

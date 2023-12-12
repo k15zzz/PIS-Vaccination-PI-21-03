@@ -19,14 +19,12 @@ onBeforeMount(async () => {
     <router-link :to="controller.backLink"> Вернуться назад </router-link>
     <div>
       <h3>ФИО пользователя</h3>
-        <label>Фамилия</label>>
       <input-text
           label="Фамилия"
           v-model="controller.value.surname"
           :disabled="controller.disableStatus()"
       />
       <div>
-        <label>Имя</label>
         <input-text
           label="Имя"
           v-model="controller.value.name"
@@ -34,7 +32,6 @@ onBeforeMount(async () => {
       />
       </div>
       <div>
-        <label>Отчество</label>
         <input-text
             label="Отчество"
             v-model="controller.value.patronymic"
@@ -47,7 +44,6 @@ onBeforeMount(async () => {
       <div>
         <input-text
             label="Телефон"
-            type="number"
             v-model="controller.value.phone"
             :disabled="controller.disableStatus()"
         />
@@ -72,13 +68,11 @@ onBeforeMount(async () => {
     />
       <input-text
           label="Рабочий телефон"
-          type="number"
           v-model="controller.value.work_phone"
           :disabled="controller.disableStatus()"
       />
       <input-text
           label="Рабочий email"
-          type="number"
           v-model="controller.value.work_email"
           :disabled="controller.disableStatus()"
       />
@@ -89,13 +83,12 @@ onBeforeMount(async () => {
       />
       <input-text
           label="Дата и время"
-          type="datetime-local"
+          type="datetime-uts"
           v-model="controller.value.date_time"
           :disabled="controller.disableStatus()"
       />
       <input-text
           label="ID экземпляра объекта"
-          type="number"
           v-model="controller.value.object_instance_id"
           :disabled="controller.disableStatus()"
       />

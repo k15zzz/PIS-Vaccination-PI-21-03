@@ -286,6 +286,7 @@ export const routes  = [
         name: 'logExport',
         component: () => import('./../pages/LogPage.vue'),
         meta: {
+            mode: "export",
             middleware: [
                 auth
             ]

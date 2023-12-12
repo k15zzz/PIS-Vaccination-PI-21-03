@@ -26,6 +26,7 @@ export class HelperController {
                 this.alertDelete(id);
                 break;
             case 'export':
+                this.export(id);
                 break;
         }
         this.type = type;
@@ -40,6 +41,8 @@ export class HelperController {
     async update() {}
 
     async delete() {}
+
+    async export(){}
 
     async sendData() {
         switch (this.type) {

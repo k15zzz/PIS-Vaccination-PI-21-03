@@ -2,9 +2,9 @@
 
 export class LogModel extends ModelHelper {
     id = null;
-    date_time = null;
-    object_instance_id = null;
-    object_description_after_action = null;
+    logDate = null;
+    objId = null;
+    objDescr = null;
     fk_user = null;
     name = null;
     surname = null;
@@ -14,8 +14,8 @@ export class LogModel extends ModelHelper {
     workPhone = null;
     workEmail = null;
     login = null;
-    OrgName = null;
-    RoleName = null;
+    organization = null;
+    position = null;
 
     static _titleParams = {
         id: "ID",
@@ -24,14 +24,14 @@ export class LogModel extends ModelHelper {
         patronymic: "Отчество",
         phone: "Телефон",
         email: "Электронная почта",
-        OrgName:"Организация",
-        RoleName:"Должность",
+        organization:"Организация",
+        position:"Должность",
         workPhone: "Рабочий телефон",
         workEmail: "Рабочая электронная почта",
         login:"Логин",
-        date_time: "Дата и время",
-        object_instance_id: "Идентификационный номер экземпляра объекта",
-        object_description_after_action: "Описание экземпляра объекта после совершения действия",
+        logDate: "Дата и время",
+        objId: "Номер экземпляра объекта",
+        objDescr: "Описание действия",
         
     }
 
@@ -42,6 +42,8 @@ export class LogModel extends ModelHelper {
 
     static _routerAction = {
         read: "logRead",
+        export: "logExport",
+        delete: "logDelete"
        
     }
 }
