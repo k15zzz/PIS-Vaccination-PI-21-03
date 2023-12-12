@@ -18,7 +18,7 @@ public class LogEntitiesModel
     [Column("work_email")] public string WorkEmail { get; set; }
     [Column("login")] public string Login { get; set; }
     [Column("date_time")] public DateTime LogDate { get; set; }
-    [Column("object_instance_id")] public string ObjId { get; set; }
+    [Column("object_instance_id")] public int ObjId { get; set; }
     [Column("object_description_after_action")] public string ObjDescr { get; set; }
    
     public static implicit operator LogEntitiesModel(LogViewModel viewModel)

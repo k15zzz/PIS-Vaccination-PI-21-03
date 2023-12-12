@@ -13,13 +13,17 @@ public class AnimalController : ControllerBase
     [ActionName("read")]
     [CanPermission("read-animal")]
     public async Task<IActionResult> Read(int id)
-        => Ok(await AnimalRepository.Read(id));
-
+    {
+        return Ok((AnimalViewModel)AnimalRepository.Read(id));
+    }
+    
     [HttpPost]
     [ActionName("create")]
     [CanPermission("create-animal")]
     public async Task<IActionResult> Create([FromBody] AnimalViewModel newAnimal)
-        => Ok(await AnimalRepository.Create(newAnimal));
+    {
+        return Ok(AnimalRepository.Create(newAnimal));
+    }
 
     [HttpGet]
     [ActionName("list")]
@@ -27,23 +31,32 @@ public class AnimalController : ControllerBase
     // [CanPermission("read-animal")] - если хочешь проверку права по JWT токену
     [CanPermission("read-animal")]
     public async Task<IActionResult> List()
-        => Ok((await AnimalRepository.List())
-            .Select(x =>
-        {
-            if (x == null) throw new ArgumentNullException();
-                return (AnimalViewModel)x;
-        })
-            .ToList());
+    { 
+        var list = AnimalRepository.List();
+        var result = new List<AnimalViewModel>();
 
-    [HttpPut]
+        foreach (var animalEntities in list)
+        {
+            result.Add(animalEntities);
+        }
+        
+        return Ok(result);
+    }
+
+    [HttpPut] 
     [ActionName("update")]
     [CanPermission("update-animal")]
     public async Task<IActionResult> Update([FromBody] AnimalViewModel animalModel)
-        => Ok((AnimalViewModel)await AnimalRepository.Update(animalModel));
+    {
+        return Ok((AnimalViewModel)AnimalRepository.Update(animalModel));
+    }
 
     [HttpDelete]
     [ActionName("delete")]
     [CanPermission("delete-animal")]
     public async Task<IActionResult> Delete(int id)
-        => Ok(await AnimalRepository.Delete(id));
+    { 
+        return Ok(AnimalRepository.Delete(id));
+    }
 }
+

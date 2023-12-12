@@ -6,7 +6,6 @@ export class PermissionService {
         const jwt = JwtResponseModel.getJwtResponse();
         if (jwt == null) return false;
         return !!jwt.scoped.find(item => item === permission);
-
     }
 
     static async isAuth() {

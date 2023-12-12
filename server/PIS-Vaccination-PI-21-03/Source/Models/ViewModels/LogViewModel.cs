@@ -6,7 +6,7 @@ public class LogViewModel
 {
     public int Id { get; set; }
     public DateTime LogDate { get; set; }
-    public string ObjId { get; set; }
+    public int ObjId { get; set; }
     public string ObjDescr { get; set; }
     public string Name { get; set; }
     public string Surname { get; set; }
