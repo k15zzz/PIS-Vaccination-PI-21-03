@@ -1,6 +1,7 @@
 ﻿import {SerializeService} from "../services/SerializeService.js";
 import {LogModel} from "../models/LogModel.js";
 import {RequestService} from "../services/RequestService.js";
+import {JwtResponseModel} from "../models/JwtResponseModel.js";
 
 export class LogRepository {
     static async list() {
@@ -29,7 +30,7 @@ export class LogRepository {
         return  await fetch('/api/v1/logreader/export',{
             method: 'POST',
             headers:{
-                'Authorization': jwtModel.accessToken,
+                'Authorization': JwtResponseModel.getJwtResponse().accessToken,
                 'Content-Type': 'application/vnd.ms-excel'
             },
             body: {
