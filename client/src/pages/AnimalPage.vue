@@ -23,6 +23,11 @@ onBeforeMount(async () => {
   <block class="registry">
     <router-link :to="controller.backLink"> Вернуться назад </router-link>
     <h3>Форма животного</h3>
+    <div v-if="controller.value.status.name">
+      <div>
+        Вакцинация животного имеет статус: {{controller.value.status.name}}
+      </div>
+    </div>
     <input-text
         label="Регистрационный номер"
         type="number"

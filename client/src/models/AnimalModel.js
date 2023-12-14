@@ -12,16 +12,19 @@ export class AnimalModel extends ModelHelper {
     photos = null;
     specialMarks = null;
     town = null;
+    fkAnimalStatus = null;
+    animalStatus = null;
     
     static _titleParams = {
         id: "ID",
         regNum: "Регистрационный номер",
-        category: "Категория",
+        animalCategory: "Категория",
         sex: "Пол",
         yearBirth: "Дата рождения",
         electronicChipNumber: "Номер электронного чипа",
         name: "Кличка",
         specialMarks: "Особые приметы",
+        animalStatus: "Статус вакцинации",
         town: "Город"
     }
     

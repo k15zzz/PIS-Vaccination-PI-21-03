@@ -14,6 +14,10 @@ export class AnimalController extends HelperController {
         name: "",
         specialMarks: null,
         category: null,
+        status: {
+            id: null,
+            name: null
+        },
         town: null
     });
     townList =  reactive([]);
@@ -39,6 +43,10 @@ export class AnimalController extends HelperController {
         this.value.category = {
             id: model.fkAnimalCategory,
             name: model.animalCategory,
+        };
+        this.value.status = {
+            id: model.fkAnimalStatus,
+            name: model.animalStatus,
         };
     }
     

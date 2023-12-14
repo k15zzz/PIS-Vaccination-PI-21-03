@@ -66,7 +66,7 @@ CREATE TABLE animal_category (
 
 CREATE  TABLE animal_status (
     id serial primary key,
-    status varchar(100)
+    name varchar(100)
 );
 
 CREATE TABLE animal (
@@ -257,7 +257,7 @@ VALUES
     (1, 'Кошка'),
     (2, 'Собака');
 
-INSERT INTO animal_status (status)
+INSERT INTO animal_status (name)
 VALUES 
     ('Не проводилась'),
     ('Вакцинировано'),

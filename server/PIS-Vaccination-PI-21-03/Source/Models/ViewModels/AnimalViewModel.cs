@@ -14,8 +14,10 @@ public class AnimalViewModel
     public string? SpecialMarks { get; set; }
     public int FkAnimalCategory { get; set; }
     public int FkTown { get; set; }
+    public int FkAnimalStatus { get; set; }
     public string? AnimalCategory { get; set; }
     public string? Town { get; set; }
+    public string? AnimalStatus { get; set; }
     
     public static implicit operator AnimalViewModel(AnimalEntitiesModel entitiesModel)
     {
@@ -34,6 +36,7 @@ public class AnimalViewModel
         {
             m.AnimalCategory = db.AnimalCategory.Find(entitiesModel.FkAnimalCategory).Name;
             m.Town = db.Towns.Find(entitiesModel.FkTown).Name;
+            m.AnimalStatus = db.AnimalStatus.Find(entitiesModel.FkAnimalStatus).Name;
         }
         return m;
     }

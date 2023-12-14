@@ -31,6 +31,10 @@ public class AnimalEntitiesModel
     public int FkAnimalCategory { get; set; }
     [ForeignKey("FkAnimalCategory")]
     public AnimalCategoryEntitiesModel AnimalCategory { get; set; }
+    [Column("fk_animal_status")]
+    public int FkAnimalStatus { get; set; }
+    [ForeignKey("FkAnimalStatus")]
+    public AnimalCategoryEntitiesModel AnimalStatus { get; set; }
 
     public static implicit operator AnimalEntitiesModel(AnimalViewModel viewModel)
     {
@@ -45,6 +49,7 @@ public class AnimalEntitiesModel
         _entetyModel.SpecialMarks = viewModel.SpecialMarks;
         _entetyModel.FkAnimalCategory = viewModel.FkAnimalCategory;
         _entetyModel.FkTown = viewModel.FkTown;
+        _entetyModel.FkAnimalStatus = viewModel.FkAnimalStatus;
         return _entetyModel;
     }
 }
