@@ -1,4 +1,5 @@
-﻿using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
+﻿using System.Text;
+using PIS_Vaccination_PI_21_03.Source.Models.EntitiesModels;
 
 namespace PIS_Vaccination_PI_21_03.Source.Repository;
 
@@ -38,8 +39,43 @@ public static class LogRepository
             return context
                 .Loggings
                 .Find(id);
-        } 
+        }
     }
+
+    public static string GenerateCSV(int id)
+    {
+        var builder = new StringBuilder();
+        foreach (var attribute in typeof(LogEntitiesModel)
+                     .GetProperties()
+                     .Select(property => property.Name)
+                     .ToArray())
+        {
+            builder.Append(attribute.ToString());
+            builder.Append(",");
+        }
+
+        builder.Append("\n");
+
+        builder.Append(Read(id).Id.ToString());
+        builder.Append(", " + Read(id).Surname.ToString());
+        builder.Append(", " + Read(id).Name.ToString());
+        builder.Append(", " + Read(id).Patronymic.ToString());
+        builder.Append(", " + Read(id).Phone.ToString());
+        builder.Append(", " + Read(id).Email.ToString());
+        builder.Append(", " + Read(id).Organization.ToString());
+        builder.Append(", " + Read(id).Position.ToString());
+        builder.Append(", " + Read(id).WorkPhone.ToString());
+        builder.Append(", " + Read(id).WorkEmail.ToString());
+        builder.Append(", " + Read(id).Login.ToString());
+        builder.Append(", " + Read(id).LogDate.ToString());
+        builder.Append(", " + Read(id).ObjId.ToString());
+        builder.Append(", " + Read(id).ObjDescr.ToString());
+
+        return builder.ToString();
+
+    }
+    
+
 
     public static LogEntitiesModel Update(LogEntitiesModel newModel) 
     {
