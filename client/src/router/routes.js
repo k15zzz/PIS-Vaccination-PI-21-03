@@ -239,10 +239,54 @@ export const routes  = [
         },
     },
     {
-        path: '/report',
-        name: 'report',
+        path: '/report-registry',
+        name: 'reportRegistry',
+        component: () => import('./../pages/ReportRegistryPage.vue'),
+        meta: {
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/report-registry/create',
+        name: 'reportCreate',
         component: () => import('./../pages/ReportPage.vue'),
         meta: {
+            mode: "create",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/report-registry/:id/read',
+        name: 'reportRead',
+        component: () => import('./../pages/ReportPage.vue'),
+        meta: {
+            mode: "read",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/report-registry/:id/update',
+        name: 'reportUpdate',
+        component: () => import('./../pages/ReportPage.vue'),
+        meta: {
+            mode: "update",
+            middleware: [
+                auth
+            ]
+        },
+    },
+    {
+        path: '/report-registry/:id/delete',
+        name: 'reportDelete',
+        component: () => import('./../pages/ReportPage.vue'),
+        meta: {
+            mode: "delete",
             middleware: [
                 auth
             ]

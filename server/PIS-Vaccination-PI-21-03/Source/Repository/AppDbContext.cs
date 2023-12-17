@@ -17,6 +17,9 @@ public class AppDbContext : DbContext
     public DbSet<TownsServiceEntitiesModels> TownsServices { get; set; } = null!;
     public DbSet<UserEntitiesModels> Users { get; set; } = null!;
     public DbSet<VaccinationEntitiesModel> Vaccinations { get; set; } = null!;
+    public DbSet<StatusStatisticEntitiesModel> StatisticStatus { get; set; } = null!;
+    public DbSet<StatisticTownEntitiesModel> StatisticTowns { get; set; } = null!;
+    public DbSet<StatisticEntitiesModel> Statistics { get; set; } = null!;
     
  
     public AppDbContext()

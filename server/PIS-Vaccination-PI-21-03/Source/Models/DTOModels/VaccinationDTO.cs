@@ -10,4 +10,5 @@ public class VaccinationDTO
     public string PositionOfDoc { get; set; }
     public string TownName { get; set; }
     public int Price { get; set; }
+    public int FKTown { get; set; } = 0;
 }

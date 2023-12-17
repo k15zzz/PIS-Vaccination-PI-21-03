@@ -13,10 +13,10 @@ import {PermissionService} from "../services/PermissionService.js";
         <div class="pi-navigation__items">
           <router-link
               v-if="PermissionService.can('create-statistic')"
-              to="/report"
+              to="/report-registry"
               class="pi-nav-items__item"
           >
-            Создать отчет
+            Реестр отчетов
           </router-link>
           <!-- // TODO: парава на вакцинацию -->
           <router-link

@@ -8,21 +8,23 @@ public class ReportMaker
     
     public class Town
     {
+        public int FkTown { get; set; }
         public string Name { get; set; }
         public int Count { get; set; }
         public double Cost { get; set; }
         
-        public Town(string name, int count, double cost)
+        public Town(string name, int count, double cost, int fkTown)
         {
+            FkTown = fkTown;
             Name = name;
             Count = count;
             Cost = cost;
         }
     }
 
-    public ReportMaker AddTown(string name, int count, double cost)
+    public ReportMaker AddTown(string name, int count, double cost, int fkTown)
     {
-        townList.Add(new Town(name, count, cost));
+        townList.Add(new Town(name, count, cost, fkTown));
         return this;
     }
 
@@ -32,7 +34,7 @@ public class ReportMaker
 
         foreach (var town in townList)
         {
-            reportViewModels.Add(new ReportViewModel(town.Name, town.Count, town.Cost));
+            reportViewModels.Add(new ReportViewModel(town.Name, town.Count, town.Cost, town.FkTown));
         }
 
         return reportViewModels;

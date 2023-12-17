@@ -26,11 +26,11 @@ public class StatisticService
 
         foreach (var town in dataGroupByTown)
         {
-            var nameTown = town.Key;
+            var nameTown = town.Value[0].TownName;
             var countTown = CalculateCount(town.Value);
             var costTown = CalculateCost(town.Value);
 
-            rep.AddTown(nameTown, countTown, costTown);
+            rep.AddTown(nameTown, countTown, costTown, town.Key);
         }
 
         return rep.ListReportViewModels();
@@ -50,14 +50,14 @@ public class StatisticService
         return cost;
     }
 
-    private static Dictionary<string, List<VaccinationDTO>> GroupingByTown(List<VaccinationDTO> data)
+    private static Dictionary<int, List<VaccinationDTO>> GroupingByTown(List<VaccinationDTO> data)
     {
-        var result = new Dictionary<string, List<VaccinationDTO>>{};
+        var result = new Dictionary<int, List<VaccinationDTO>>{};
         
         foreach (var value in data)
         {
-            if (!result.ContainsKey(value.TownName)) result.Add(value.TownName, new List<VaccinationDTO>());
-            result[value.TownName].Add(value);
+            if (!result.ContainsKey(value.FKTown)) result.Add(value.FKTown, new List<VaccinationDTO>());
+            result[value.FKTown].Add(value);
         }
 
         return result;

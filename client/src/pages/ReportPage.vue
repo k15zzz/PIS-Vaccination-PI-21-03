@@ -4,8 +4,11 @@ import AppButton from "../components/ui/AppButton.vue";
 import Block from "../components/ui/Block.vue";
 import {onBeforeMount, reactive} from "vue";
 import Multiselect from 'vue-multiselect';
+import {useRoute} from "vue-router";
 
-const controller = new ReportController();
+const route = useRoute();
+
+const controller = new ReportController(route.meta.mode, route.params.id);
 onBeforeMount(async () => {
   await controller.load();
 });
@@ -13,15 +16,36 @@ onBeforeMount(async () => {
 
 <template>
   <block class="report_page">
+    <router-link :to="controller.backLink"> Вернуться назад </router-link>
     <h3 class="report-page__title">
       Статистика
     </h3>
     <div class="report-page__content">
       <div class="build-statistic">
+        <div class="build-stat__wrap">
+          <label>Статус отчета</label>
+          <multiselect
+              v-if="controller.statusList.length > 0"
+              v-model="controller.value.status"
+              :options="controller.statusList"
+              :multiple="false"
+              :close-on-select="true"
+              placeholder="Выберите тип"
+              :preselect-first="true"
+              label="name"
+              :disabled="controller.disableStatus()"
 
+          >
+            <template slot="selection" slot-scope="{ values, search, isOpen }">
+                            <span class="multiselect__single" v-if="values.length" v-show="!isOpen">
+                                {{ values.length }} options selected
+                            </span>
+            </template>
+          </multiselect>
+        </div>
         <div class="build-stat__wrap">
           <label class="build-stat-wrap__title">Исполнитель</label>
-          <multiselect v-model="controller.value.towns" :options="controller.townList" :multiple="true"
+          <multiselect v-model="controller.value.towns" :disabled="controller.disableStatus()" :options="controller.townList" :multiple="true"
                        :close-on-select="false" :clear-on-select="false" :preserve-search="true"
                        placeholder="Выберете города" label="name" track-by="id" :preselect-first="true">
             <template slot="selection" slot-scope="{ values, search, isOpen }"><span
@@ -36,16 +60,19 @@ onBeforeMount(async () => {
           <div class="build-stat-wrap__items">
             <div class="build-stat-items__item">
               <label>Дата начала</label>
-              <input v-model="controller.value.dateStart" type="datetime-local" name="date-start" >
+              <input v-model="controller.value.dateStart" :disabled="controller.disableStatus()" type="datetime-local" name="date-start" > 
             </div>
             <div class="build-stat-items__item">
               <label>Дата конца</label>
-              <input v-model="controller.value.dateFinis" type="datetime-local" name="date-finis">
+              <input v-model="controller.value.dateFinis" :disabled="controller.disableStatus()" type="datetime-local" name="date-finis">
             </div>
           </div>
         </div>
-        <app-button @click="controller.make()" class="build-stat__action">
+        <app-button @click="controller.make()"  v-if="!controller.disableStatus()" class="build-stat__action">
           Рассчитать
+        </app-button>
+        <app-button @click="controller.sendData()"  v-if="!controller.disableStatus()" class="build-stat__action">
+          Рассчитать и сохранить
         </app-button>
       </div>
       <div class="report">
