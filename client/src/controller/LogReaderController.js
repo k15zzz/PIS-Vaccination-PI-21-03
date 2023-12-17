@@ -53,11 +53,20 @@ export class LogReaderController extends HelperController {
 
     async export(id)
         {
-            let resp = await LogRepository.export(id);
-            
-            if (resp) {
-                this.router.push(this.backLink);
-            }
+            this.read(id)
+            const apiEndpoint = '/api/v1/logreader/export?id='+id;
+
+            const a = document.createElement('a');
+            a.href = apiEndpoint;
+            a.download = 'log.csv'; // Укажите имя файла
+            a.style.display = 'none'; // Скрываем элемент
+
+            // Добавляем ссылку на документ и эмулируем клик
+            document.body.appendChild(a);
+            a.click();
+
+            // Удаляем ссылку из документа
+            document.body.removeChild(a);
         }
 }
 //todo экспорт

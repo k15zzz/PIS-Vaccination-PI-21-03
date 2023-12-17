@@ -15,22 +15,21 @@ public class LogReaderController : ControllerBase
     [ActionName("read")]
     public async Task<IActionResult> Read(int id) =>
         Ok((LogViewModel)LogRepository.Read(id));
+
     [HttpDelete]
     [ActionName("delete")]
     public async Task<IActionResult> Delete(int id) =>
         Ok(LogRepository.Delete(id));
-    
+
     [HttpGet]
     [ActionName("list")]
     public async Task<IActionResult> List() =>
         Ok(LogRepository.List().Select(x => (LogViewModel)x).ToList());
 
-    [HttpPost]
+    [HttpGet]
     [ActionName("export")]
-    public FileResult ExportToExcel([FromBody]int id)
-    {
-        string log = LogRepository.Read(id).ToString();
-        return File(Encoding.ASCII.GetBytes(log), "application/vnd.ms-excel","export.xls");
-    }
+    public async Task<FileResult> ExportToExcel(int id)
+        => File(Encoding.UTF8.GetBytes(LogRepository.GenerateCSV(id)), "text/csv", "user");
+
 }
 //todo поправить
