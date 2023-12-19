@@ -1,3 +1,5 @@
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PIS_Vaccination_PI_21_03.Source.Models;
@@ -82,10 +84,23 @@ public class StatisticController: ControllerBase
     [CanPermission("create-statistic")]
     public async Task<IActionResult> StatusList()
     { 
+        var jwt = Request.Headers["Authorization"].FirstOrDefault();
+        var userId = new JwtSecurityTokenHandler()
+            .ReadJwtToken(jwt)
+            .Payload[ClaimTypes.Sid]
+            .ToString();
+        
         using (var db = new AppDbContext())
         {
-            var towns = db.StatisticStatus.ToList();
-            return Ok(towns);
+            var roleId = db.Users.Find(int.Parse(userId)).FkRole;
+            var statusStatistics = db.RoleStatusStatistic
+                .Where(m => m.FkRole == roleId)
+                .Include(m => m.StatusStatistic)
+                .ToList()
+                .GroupBy(m => m.FkStatusStatistic) 
+                .Select(g => g.First().StatusStatistic) 
+                .ToList();
+            return Ok(statusStatistics);
         } 
     }
 }

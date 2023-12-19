@@ -20,6 +20,7 @@ public class AppDbContext : DbContext
     public DbSet<StatusStatisticEntitiesModel> StatisticStatus { get; set; } = null!;
     public DbSet<StatisticTownEntitiesModel> StatisticTowns { get; set; } = null!;
     public DbSet<StatisticEntitiesModel> Statistics { get; set; } = null!;
+    public DbSet<RoleStatusStatisticEntitiesMode> RoleStatusStatistic { get; set; } = null!;
     
  
     public AppDbContext()

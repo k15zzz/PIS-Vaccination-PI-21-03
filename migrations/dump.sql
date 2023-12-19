@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS statistics;
 DROP TABLE IF EXISTS town;
 DROP TABLE IF EXISTS permission_role;
 DROP TABLE IF EXISTS permission;
+DROP TABLE IF EXISTS role_status_statistic;
 DROP TABLE IF EXISTS role;
 DROp TABLE IF EXISTS statistic_town;
 DROP TABLE IF EXISTS town;
@@ -146,6 +147,14 @@ CREATE TABLE statistics (
     fk_status INT NOT NULL DEFAULT 1,
     update_status TIMESTAMP NOT NULL,
     FOREIGN KEY (fk_status) REFERENCES status_statistic(id)
+);
+
+CREATE TABLE role_status_statistic (
+     id serial primary key,
+     fk_role int not null,
+     fk_status_statistic int not null,
+     foreign key (fk_role) references role (id),
+     foreign key (fk_status_statistic) references status_statistic(id)
 );
 
 CREATE TABLE statistic_town (
@@ -412,3 +421,18 @@ VALUES
     (3, 'бешенство', '2002-02-12', '434234234', '2022-03-12', 'Вет-врач-инъекционист', 2, 1, 1),
     (4, 'бешенство', '2010-02-12', '434234234', '2012-03-12', 'Вет-врач-инъекционист', 2, 1, 3),
     (5, 'бешенство', '2002-02-12', '434234234', '2014-03-12', 'Вет-врач-инъекционист', 1, 1, 1);
+
+INSERT INTO role_status_statistic
+    (fk_role, fk_status_statistic)
+VALUES 
+    (9, 2),
+    (9, 4),
+    (9, 5),
+    (9, 6),
+    (10, 1),
+    (10, 2),
+    (10, 3),
+    (11, 2),
+    (11, 4),
+    (11, 5),
+    (11, 6);

@@ -10,4 +10,5 @@ public class RoleEntitiesModel
     [Column("name")]
     public string Name { get; set; }
     public List<PermissionRoleEntitiesModel> PermissionRoles { get; set; }
+    public List<RoleStatusStatisticEntitiesMode> RoleStatusStatistic { get; set; }
 }
